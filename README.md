@@ -1,1 +1,1 @@
-# graphql-schema
+# graphql-tools
