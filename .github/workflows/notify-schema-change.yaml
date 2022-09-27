@@ -1,0 +1,43 @@
+# Notifies other repos when the graphql schema has changed
+name: Notify graphql schema change
+
+# Run only if the graphql schema has changed
+on:
+  push:
+    branches: [main]
+    paths: ["schema.graphql"]
+  workflow_dispatch:
+jobs:
+  notify-repos:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Step 1 | Checkout graphql-docs repo
+        uses: actions/checkout@v3
+        with:
+          repository: codebgp/graphql-docs
+          ssh-key: ${{ secrets.GRAPHQL_DOCS_WRITE_SSH_KEY }}
+          path: ./graphql-docs
+      - name: Step 2 | Checkout frontend repo
+        uses: actions/checkout@v3
+        with:
+          repository: codebgp/bgp-data-ui
+          ssh-key: ${{ secrets.FRONTEND_WRITE_SSH_KEY }}
+          path: ./frontend
+      - name: Step 3 | Notify graphql-docs repo that the graphql schema has changed
+        uses: EndBug/add-and-commit@v9
+        with:
+          cwd: ./graphql-docs
+          author_name: Graphql schema change notifier action
+          author_email: graphql-tools-repo@users.noreply.github.com
+          message: trigger graphql docs update
+          commit: --allow-empty
+          push: -f origin main:graphql-schema-changed
+      - name: Step 4 | Notify frontend repo that the graphql schema has changed
+        uses: EndBug/add-and-commit@v9
+        with:
+          cwd: ./frontend
+          author_name: Graphql schema change notifier action
+          author_email: graphql-tools-repo@users.noreply.github.com
+          message: trigger graphql operations update
+          commit: --allow-empty
+          push: -f origin main:graphql-schema-changed
