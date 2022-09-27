@@ -2431,42 +2431,6 @@ type dataSources {
   ): prefixDataSourceAssociations_aggregate!
 
   """An array relationship"""
-  prefixes(
-    """distinct select on columns"""
-    distinct_on: [prefix_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [prefix_order_by!]
-
-    """filter the rows returned"""
-    where: prefix_bool_exp
-  ): [prefix!]!
-
-  """An aggregate relationship"""
-  prefixes_aggregate(
-    """distinct select on columns"""
-    distinct_on: [prefix_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [prefix_order_by!]
-
-    """filter the rows returned"""
-    where: prefix_bool_exp
-  ): prefix_aggregate!
-
-  """An array relationship"""
   routeDataSourceAssociations(
     """distinct select on columns"""
     distinct_on: [routeDataSourceAssociations_select_column!]
@@ -2537,42 +2501,6 @@ type dataSources {
     """filter the rows returned"""
     where: rpkiROADataSourceAssociations_bool_exp
   ): rpkiROADataSourceAssociations_aggregate!
-
-  """An array relationship"""
-  rpki_roas(
-    """distinct select on columns"""
-    distinct_on: [rpki_roa_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [rpki_roa_order_by!]
-
-    """filter the rows returned"""
-    where: rpki_roa_bool_exp
-  ): [rpki_roa!]!
-
-  """An aggregate relationship"""
-  rpki_roas_aggregate(
-    """distinct select on columns"""
-    distinct_on: [rpki_roa_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [rpki_roa_order_by!]
-
-    """filter the rows returned"""
-    where: rpki_roa_bool_exp
-  ): rpki_roa_aggregate!
   selector(
     """JSON select path"""
     path: String
@@ -2609,10 +2537,8 @@ input dataSources_bool_exp {
   locality: String_comparison_exp
   peeringDataSourceAssociations: peeringDataSourceAssociations_bool_exp
   prefixDataSourceAssociations: prefixDataSourceAssociations_bool_exp
-  prefixes: prefix_bool_exp
   routeDataSourceAssociations: routeDataSourceAssociations_bool_exp
   rpkiROADataSourceAssociations: rpkiROADataSourceAssociations_bool_exp
-  rpki_roas: rpki_roa_bool_exp
   selector: jsonb_comparison_exp
 }
 
@@ -2649,10 +2575,8 @@ input dataSources_order_by {
   locality: order_by
   peeringDataSourceAssociations_aggregate: peeringDataSourceAssociations_aggregate_order_by
   prefixDataSourceAssociations_aggregate: prefixDataSourceAssociations_aggregate_order_by
-  prefixes_aggregate: prefix_aggregate_order_by
   routeDataSourceAssociations_aggregate: routeDataSourceAssociations_aggregate_order_by
   rpkiROADataSourceAssociations_aggregate: rpkiROADataSourceAssociations_aggregate_order_by
-  rpki_roas_aggregate: rpki_roa_aggregate_order_by
   selector: order_by
 }
 
@@ -8157,7 +8081,9 @@ type routes {
   rpki_status: String
   time_inserted: timestamptz
 
-  """get the latest time of a route based on route-data source associations"""
+  """
+  get the latest BGP update time of a route based on route-data source associations
+  """
   time_updated: timestamptz
 }
 
