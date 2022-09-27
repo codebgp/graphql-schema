@@ -8105,9 +8105,6 @@ type routes {
   as_path: String
   id: uuid
 
-  """get the latest time of a route based on route-data source associations"""
-  latest_time: timestamptz
-
   """An object relationship"""
   neighborAutonomousSystem: autonomousSystems
 
@@ -8153,6 +8150,10 @@ type routes {
     where: routeDataSourceAssociations_bool_exp
   ): routeDataSourceAssociations_aggregate!
   rpki_status: String
+  time_inserted: timestamptz
+
+  """get the latest time of a route based on route-data source associations"""
+  time_updated: timestamptz
 }
 
 """
@@ -8197,12 +8198,13 @@ input routes_bool_exp {
   _or: [routes_bool_exp!]
   as_path: String_comparison_exp
   id: uuid_comparison_exp
-  latest_time: timestamptz_comparison_exp
   neighborAutonomousSystem: autonomousSystems_bool_exp
   originAutonomousSystem: autonomousSystems_bool_exp
   prefix: prefixes_bool_exp
   routeDataSourceAssociations: routeDataSourceAssociations_bool_exp
   rpki_status: String_comparison_exp
+  time_inserted: timestamptz_comparison_exp
+  time_updated: timestamptz_comparison_exp
 }
 
 """
@@ -8226,6 +8228,7 @@ type routes_max_fields {
   as_path: String
   id: uuid
   rpki_status: String
+  time_inserted: timestamptz
 }
 
 """
@@ -8235,6 +8238,7 @@ input routes_max_order_by {
   as_path: order_by
   id: order_by
   rpki_status: order_by
+  time_inserted: order_by
 }
 
 """aggregate min on columns"""
@@ -8242,6 +8246,7 @@ type routes_min_fields {
   as_path: String
   id: uuid
   rpki_status: String
+  time_inserted: timestamptz
 }
 
 """
@@ -8251,6 +8256,7 @@ input routes_min_order_by {
   as_path: order_by
   id: order_by
   rpki_status: order_by
+  time_inserted: order_by
 }
 
 """
@@ -8275,12 +8281,13 @@ input routes_obj_rel_insert_input {
 input routes_order_by {
   as_path: order_by
   id: order_by
-  latest_time: order_by
   neighborAutonomousSystem: autonomousSystems_order_by
   originAutonomousSystem: autonomousSystems_order_by
   prefix: prefixes_order_by
   routeDataSourceAssociations_aggregate: routeDataSourceAssociations_aggregate_order_by
   rpki_status: order_by
+  time_inserted: order_by
+  time_updated: order_by
 }
 
 """
@@ -8295,6 +8302,9 @@ enum routes_select_column {
 
   """column name"""
   rpki_status
+
+  """column name"""
+  time_inserted
 }
 
 """
