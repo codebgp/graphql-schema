@@ -7802,6 +7802,9 @@ columns and relationships of "main.view_new_route_data_source_assoc"
 type routeDataSourceAssociations {
   communities: _text
 
+  """get the communities of route-data source associations in text format"""
+  communities_string: String
+
   """An object relationship"""
   dataSource: dataSources
   data_time: timestamptz
@@ -7852,6 +7855,7 @@ input routeDataSourceAssociations_bool_exp {
   _not: routeDataSourceAssociations_bool_exp
   _or: [routeDataSourceAssociations_bool_exp!]
   communities: _text_comparison_exp
+  communities_string: String_comparison_exp
   dataSource: dataSources_bool_exp
   data_time: timestamptz_comparison_exp
   id: uuid_comparison_exp
@@ -7913,6 +7917,7 @@ Ordering options when selecting data from "main.view_new_route_data_source_assoc
 """
 input routeDataSourceAssociations_order_by {
   communities: order_by
+  communities_string: order_by
   dataSource: dataSources_order_by
   data_time: order_by
   id: order_by
