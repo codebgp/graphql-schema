@@ -29,6 +29,21 @@ input Boolean_comparison_exp {
 }
 
 """
+Boolean expression to compare columns of type "Float". All fields are combined with logical 'AND'.
+"""
+input Float_comparison_exp {
+  _eq: Float
+  _gt: Float
+  _gte: Float
+  _in: [Float!]
+  _is_null: Boolean
+  _lt: Float
+  _lte: Float
+  _neq: Float
+  _nin: [Float!]
+}
+
+"""
 Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
 """
 input Int_comparison_exp {
@@ -924,6 +939,333 @@ enum configuredPrefixes_select_column {
 }
 
 """
+columns and relationships of "main.view_data_source_metadata"
+"""
+type dataSourceMetadatas {
+  city: String
+  continent: String
+  country: String
+
+  """An object relationship"""
+  dataSource: dataSources
+  data_source_id: uuid
+  id: uuid
+  lat: Float
+  lon: Float
+}
+
+"""
+aggregated selection of "main.view_data_source_metadata"
+"""
+type dataSourceMetadatas_aggregate {
+  aggregate: dataSourceMetadatas_aggregate_fields
+  nodes: [dataSourceMetadatas!]!
+}
+
+"""
+aggregate fields of "main.view_data_source_metadata"
+"""
+type dataSourceMetadatas_aggregate_fields {
+  avg: dataSourceMetadatas_avg_fields
+  count(columns: [dataSourceMetadatas_select_column!], distinct: Boolean): Int!
+  max: dataSourceMetadatas_max_fields
+  min: dataSourceMetadatas_min_fields
+  stddev: dataSourceMetadatas_stddev_fields
+  stddev_pop: dataSourceMetadatas_stddev_pop_fields
+  stddev_samp: dataSourceMetadatas_stddev_samp_fields
+  sum: dataSourceMetadatas_sum_fields
+  var_pop: dataSourceMetadatas_var_pop_fields
+  var_samp: dataSourceMetadatas_var_samp_fields
+  variance: dataSourceMetadatas_variance_fields
+}
+
+"""
+order by aggregate values of table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_aggregate_order_by {
+  avg: dataSourceMetadatas_avg_order_by
+  count: order_by
+  max: dataSourceMetadatas_max_order_by
+  min: dataSourceMetadatas_min_order_by
+  stddev: dataSourceMetadatas_stddev_order_by
+  stddev_pop: dataSourceMetadatas_stddev_pop_order_by
+  stddev_samp: dataSourceMetadatas_stddev_samp_order_by
+  sum: dataSourceMetadatas_sum_order_by
+  var_pop: dataSourceMetadatas_var_pop_order_by
+  var_samp: dataSourceMetadatas_var_samp_order_by
+  variance: dataSourceMetadatas_variance_order_by
+}
+
+"""aggregate avg on columns"""
+type dataSourceMetadatas_avg_fields {
+  lat: Float
+  lon: Float
+}
+
+"""
+order by avg() on columns of table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_avg_order_by {
+  lat: order_by
+  lon: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "main.view_data_source_metadata". All fields are combined with a logical 'AND'.
+"""
+input dataSourceMetadatas_bool_exp {
+  _and: [dataSourceMetadatas_bool_exp!]
+  _not: dataSourceMetadatas_bool_exp
+  _or: [dataSourceMetadatas_bool_exp!]
+  city: String_comparison_exp
+  continent: String_comparison_exp
+  country: String_comparison_exp
+  dataSource: dataSources_bool_exp
+  data_source_id: uuid_comparison_exp
+  id: uuid_comparison_exp
+  lat: Float_comparison_exp
+  lon: Float_comparison_exp
+}
+
+"""
+input type for incrementing numeric columns in table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_inc_input {
+  lat: Float
+  lon: Float
+}
+
+"""
+input type for inserting data into table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_insert_input {
+  city: String
+  continent: String
+  country: String
+  data_source_id: uuid
+  id: uuid
+  lat: Float
+  lon: Float
+}
+
+"""aggregate max on columns"""
+type dataSourceMetadatas_max_fields {
+  city: String
+  continent: String
+  country: String
+  data_source_id: uuid
+  id: uuid
+  lat: Float
+  lon: Float
+}
+
+"""
+order by max() on columns of table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_max_order_by {
+  city: order_by
+  continent: order_by
+  country: order_by
+  data_source_id: order_by
+  id: order_by
+  lat: order_by
+  lon: order_by
+}
+
+"""aggregate min on columns"""
+type dataSourceMetadatas_min_fields {
+  city: String
+  continent: String
+  country: String
+  data_source_id: uuid
+  id: uuid
+  lat: Float
+  lon: Float
+}
+
+"""
+order by min() on columns of table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_min_order_by {
+  city: order_by
+  continent: order_by
+  country: order_by
+  data_source_id: order_by
+  id: order_by
+  lat: order_by
+  lon: order_by
+}
+
+"""
+response of any mutation on the table "main.view_data_source_metadata"
+"""
+type dataSourceMetadatas_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [dataSourceMetadatas!]!
+}
+
+"""
+Ordering options when selecting data from "main.view_data_source_metadata".
+"""
+input dataSourceMetadatas_order_by {
+  city: order_by
+  continent: order_by
+  country: order_by
+  dataSource: dataSources_order_by
+  data_source_id: order_by
+  id: order_by
+  lat: order_by
+  lon: order_by
+}
+
+"""
+select columns of table "main.view_data_source_metadata"
+"""
+enum dataSourceMetadatas_select_column {
+  """column name"""
+  city
+
+  """column name"""
+  continent
+
+  """column name"""
+  country
+
+  """column name"""
+  data_source_id
+
+  """column name"""
+  id
+
+  """column name"""
+  lat
+
+  """column name"""
+  lon
+}
+
+"""
+input type for updating data in table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_set_input {
+  city: String
+  continent: String
+  country: String
+  lat: Float
+  lon: Float
+}
+
+"""aggregate stddev on columns"""
+type dataSourceMetadatas_stddev_fields {
+  lat: Float
+  lon: Float
+}
+
+"""
+order by stddev() on columns of table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_stddev_order_by {
+  lat: order_by
+  lon: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type dataSourceMetadatas_stddev_pop_fields {
+  lat: Float
+  lon: Float
+}
+
+"""
+order by stddev_pop() on columns of table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_stddev_pop_order_by {
+  lat: order_by
+  lon: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type dataSourceMetadatas_stddev_samp_fields {
+  lat: Float
+  lon: Float
+}
+
+"""
+order by stddev_samp() on columns of table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_stddev_samp_order_by {
+  lat: order_by
+  lon: order_by
+}
+
+"""aggregate sum on columns"""
+type dataSourceMetadatas_sum_fields {
+  lat: Float
+  lon: Float
+}
+
+"""
+order by sum() on columns of table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_sum_order_by {
+  lat: order_by
+  lon: order_by
+}
+
+input dataSourceMetadatas_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: dataSourceMetadatas_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: dataSourceMetadatas_set_input
+  where: dataSourceMetadatas_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type dataSourceMetadatas_var_pop_fields {
+  lat: Float
+  lon: Float
+}
+
+"""
+order by var_pop() on columns of table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_var_pop_order_by {
+  lat: order_by
+  lon: order_by
+}
+
+"""aggregate var_samp on columns"""
+type dataSourceMetadatas_var_samp_fields {
+  lat: Float
+  lon: Float
+}
+
+"""
+order by var_samp() on columns of table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_var_samp_order_by {
+  lat: order_by
+  lon: order_by
+}
+
+"""aggregate variance on columns"""
+type dataSourceMetadatas_variance_fields {
+  lat: Float
+  lon: Float
+}
+
+"""
+order by variance() on columns of table "main.view_data_source_metadata"
+"""
+input dataSourceMetadatas_variance_order_by {
+  lat: order_by
+  lon: order_by
+}
+
+"""
 columns and relationships of "main.view_new_data_source"
 """
 type dataSources {
@@ -962,6 +1304,42 @@ type dataSources {
     """filter the rows returned"""
     where: autonomousSystemDataSourceAssociations_bool_exp
   ): autonomousSystemDataSourceAssociations_aggregate!
+
+  """An array relationship"""
+  dataSourceMetadatas(
+    """distinct select on columns"""
+    distinct_on: [dataSourceMetadatas_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dataSourceMetadatas_order_by!]
+
+    """filter the rows returned"""
+    where: dataSourceMetadatas_bool_exp
+  ): [dataSourceMetadatas!]!
+
+  """An aggregate relationship"""
+  dataSourceMetadatas_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dataSourceMetadatas_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dataSourceMetadatas_order_by!]
+
+    """filter the rows returned"""
+    where: dataSourceMetadatas_bool_exp
+  ): dataSourceMetadatas_aggregate!
   data_service: String
   id: uuid
   locality: String
@@ -1140,6 +1518,7 @@ input dataSources_bool_exp {
   _not: dataSources_bool_exp
   _or: [dataSources_bool_exp!]
   autonomousSystemDataSourceAssociations: autonomousSystemDataSourceAssociations_bool_exp
+  dataSourceMetadatas: dataSourceMetadatas_bool_exp
   data_service: String_comparison_exp
   id: uuid_comparison_exp
   locality: String_comparison_exp
@@ -1178,6 +1557,7 @@ type dataSources_mutation_response {
 """Ordering options when selecting data from "main.view_new_data_source"."""
 input dataSources_order_by {
   autonomousSystemDataSourceAssociations_aggregate: autonomousSystemDataSourceAssociations_aggregate_order_by
+  dataSourceMetadatas_aggregate: dataSourceMetadatas_aggregate_order_by
   data_service: order_by
   id: order_by
   locality: order_by
@@ -1519,6 +1899,14 @@ type mutation_root {
   ): autonomousSystemDataSourceAssociations_mutation_response
 
   """
+  delete data from the table: "main.view_data_source_metadata"
+  """
+  deleteDataSourceMetadatas(
+    """filter the rows which have to be deleted"""
+    where: dataSourceMetadatas_bool_exp!
+  ): dataSourceMetadatas_mutation_response
+
+  """
   delete data from the table: "conf.view_new_manual_autonomous_system"
   """
   deleteManuallyConfiguredAutonomousSystems(
@@ -1621,6 +2009,22 @@ type mutation_root {
     """the rows to be inserted"""
     objects: [configuredDataServices_insert_input!]!
   ): configuredDataServices_mutation_response
+
+  """
+  insert a single row into the table: "main.view_data_source_metadata"
+  """
+  insertDataSourceMetadata(
+    """the row to be inserted"""
+    object: dataSourceMetadatas_insert_input!
+  ): dataSourceMetadatas
+
+  """
+  insert data into the table: "main.view_data_source_metadata"
+  """
+  insertDataSourceMetadatas(
+    """the rows to be inserted"""
+    objects: [dataSourceMetadatas_insert_input!]!
+  ): dataSourceMetadatas_mutation_response
 
   """
   insert a single row into the table: "conf.view_new_manual_autonomous_system"
@@ -1867,6 +2271,28 @@ type mutation_root {
     """filter the rows which have to be updated"""
     where: dataSources_bool_exp!
   ): dataSources_mutation_response
+
+  """
+  update data of the table: "main.view_data_source_metadata"
+  """
+  updateDataSourceMetadata(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: dataSourceMetadatas_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: dataSourceMetadatas_set_input
+
+    """filter the rows which have to be updated"""
+    where: dataSourceMetadatas_bool_exp!
+  ): dataSourceMetadatas_mutation_response
+
+  """
+  update multiples rows of table: "main.view_data_source_metadata"
+  """
+  updateDataSourceMetadatas(
+    """updates to execute, in order"""
+    updates: [dataSourceMetadatas_updates!]!
+  ): [dataSourceMetadatas_mutation_response]
 
   """
   update multiples rows of table: "main.view_new_data_source"
@@ -2894,6 +3320,44 @@ type query_root {
     """filter the rows returned"""
     where: configuredPrefixes_bool_exp
   ): [configuredPrefixes!]!
+
+  """An array relationship"""
+  dataSourceMetadatas(
+    """distinct select on columns"""
+    distinct_on: [dataSourceMetadatas_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dataSourceMetadatas_order_by!]
+
+    """filter the rows returned"""
+    where: dataSourceMetadatas_bool_exp
+  ): [dataSourceMetadatas!]!
+
+  """
+  fetch aggregated fields from the table: "main.view_data_source_metadata"
+  """
+  dataSourceMetadatasAggregate(
+    """distinct select on columns"""
+    distinct_on: [dataSourceMetadatas_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dataSourceMetadatas_order_by!]
+
+    """filter the rows returned"""
+    where: dataSourceMetadatas_bool_exp
+  ): dataSourceMetadatas_aggregate!
 
   """
   fetch data from the table: "main.view_new_data_source"
@@ -4223,6 +4687,44 @@ type subscription_root {
     """filter the rows returned"""
     where: configuredPrefixes_bool_exp
   ): [configuredPrefixes!]!
+
+  """An array relationship"""
+  dataSourceMetadatas(
+    """distinct select on columns"""
+    distinct_on: [dataSourceMetadatas_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dataSourceMetadatas_order_by!]
+
+    """filter the rows returned"""
+    where: dataSourceMetadatas_bool_exp
+  ): [dataSourceMetadatas!]!
+
+  """
+  fetch aggregated fields from the table: "main.view_data_source_metadata"
+  """
+  dataSourceMetadatasAggregate(
+    """distinct select on columns"""
+    distinct_on: [dataSourceMetadatas_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dataSourceMetadatas_order_by!]
+
+    """filter the rows returned"""
+    where: dataSourceMetadatas_bool_exp
+  ): dataSourceMetadatas_aggregate!
 
   """
   fetch data from the table: "main.view_new_data_source"
