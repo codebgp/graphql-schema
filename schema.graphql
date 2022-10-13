@@ -264,6 +264,23 @@ input autonomousSystemDataSourceAssociations_set_input {
   data_time: timestamptz
 }
 
+"""
+Streaming cursor of the table "autonomousSystemDataSourceAssociations"
+"""
+input autonomousSystemDataSourceAssociations_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: autonomousSystemDataSourceAssociations_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input autonomousSystemDataSourceAssociations_stream_cursor_value_input {
+  data_time: timestamptz
+  id: uuid
+}
+
 input autonomousSystemDataSourceAssociations_updates {
   """sets the columns of the filtered rows to the given values"""
   _set: autonomousSystemDataSourceAssociations_set_input
@@ -592,6 +609,23 @@ type autonomousSystems_stddev_samp_fields {
   number: Float
 }
 
+"""
+Streaming cursor of the table "autonomousSystems"
+"""
+input autonomousSystems_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: autonomousSystems_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input autonomousSystems_stream_cursor_value_input {
+  id: uuid
+  number: bigint
+}
+
 """aggregate sum on columns"""
 type autonomousSystems_sum_fields {
   number: bigint
@@ -682,6 +716,23 @@ enum configuredAutonomousSystems_select_column {
 
   """column name"""
   number
+}
+
+"""
+Streaming cursor of the table "configuredAutonomousSystems"
+"""
+input configuredAutonomousSystems_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: configuredAutonomousSystems_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input configuredAutonomousSystems_stream_cursor_value_input {
+  data_service: String
+  number: bigint
 }
 
 """
@@ -831,6 +882,29 @@ input configuredDataServices_set_input {
   filter_on_prefix: String
 }
 
+"""
+Streaming cursor of the table "configuredDataServices"
+"""
+input configuredDataServices_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: configuredDataServices_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input configuredDataServices_stream_cursor_value_input {
+  configuration: jsonb
+  data_service: String
+  data_source_selector_fields: jsonb
+  enabled: Boolean
+  filter_on_autonomous_system: String
+  filter_on_data_source: String
+  filter_on_prefix: String
+  id: uuid
+}
+
 input configuredDataServices_updates {
   """append existing jsonb value of filtered columns with new jsonb value"""
   _append: configuredDataServices_append_input
@@ -898,6 +972,23 @@ enum configuredDataSources_select_column {
 }
 
 """
+Streaming cursor of the table "configuredDataSources"
+"""
+input configuredDataSources_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: configuredDataSources_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input configuredDataSources_stream_cursor_value_input {
+  data_service: String
+  selector: jsonb
+}
+
+"""
 columns and relationships of "conf.view_new_prefix"
 """
 type configuredPrefixes {
@@ -943,6 +1034,34 @@ enum configuredPrefixes_select_column {
 
   """column name"""
   network
+}
+
+"""
+Streaming cursor of the table "configuredPrefixes"
+"""
+input configuredPrefixes_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: configuredPrefixes_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input configuredPrefixes_stream_cursor_value_input {
+  data_service: String
+  ip_version: Int
+  mask_length: Int
+  network: cidr
+}
+
+"""ordering argument of a cursor"""
+enum cursor_ordering {
+  """ascending ordering of the cursor"""
+  ASC
+
+  """descending ordering of the cursor"""
+  DESC
 }
 
 """
@@ -1205,6 +1324,28 @@ order by stddev_samp() on columns of table "main.view_data_source_metadata"
 input dataSourceMetadatas_stddev_samp_order_by {
   lat: order_by
   lon: order_by
+}
+
+"""
+Streaming cursor of the table "dataSourceMetadatas"
+"""
+input dataSourceMetadatas_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: dataSourceMetadatas_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input dataSourceMetadatas_stream_cursor_value_input {
+  city: String
+  continent: String
+  country: String
+  data_source_id: uuid
+  id: uuid
+  lat: Float
+  lon: Float
 }
 
 """aggregate sum on columns"""
@@ -1599,6 +1740,25 @@ input dataSources_set_input {
   locality: String
 }
 
+"""
+Streaming cursor of the table "dataSources"
+"""
+input dataSources_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: dataSources_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input dataSources_stream_cursor_value_input {
+  data_service: String
+  id: uuid
+  locality: String
+  selector: jsonb
+}
+
 input dataSources_updates {
   """sets the columns of the filtered rows to the given values"""
   _set: dataSources_set_input
@@ -1713,6 +1873,24 @@ input manuallyConfiguredAutonomousSystems_set_input {
   reject: Boolean
 }
 
+"""
+Streaming cursor of the table "manuallyConfiguredAutonomousSystems"
+"""
+input manuallyConfiguredAutonomousSystems_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: manuallyConfiguredAutonomousSystems_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input manuallyConfiguredAutonomousSystems_stream_cursor_value_input {
+  id: uuid
+  number: bigint
+  reject: Boolean
+}
+
 input manuallyConfiguredAutonomousSystems_updates {
   """sets the columns of the filtered rows to the given values"""
   _set: manuallyConfiguredAutonomousSystems_set_input
@@ -1798,6 +1976,25 @@ input type for updating data in table "conf.view_new_manual_data_source"
 """
 input manuallyConfiguredDataSources_set_input {
   reject: Boolean
+}
+
+"""
+Streaming cursor of the table "manuallyConfiguredDataSources"
+"""
+input manuallyConfiguredDataSources_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: manuallyConfiguredDataSources_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input manuallyConfiguredDataSources_stream_cursor_value_input {
+  data_service: String
+  id: uuid
+  reject: Boolean
+  selector: jsonb
 }
 
 input manuallyConfiguredDataSources_updates {
@@ -1886,6 +2083,26 @@ enum manuallyConfiguredPrefixes_select_column {
 input type for updating data in table "conf.view_new_manual_prefix"
 """
 input manuallyConfiguredPrefixes_set_input {
+  reject: Boolean
+}
+
+"""
+Streaming cursor of the table "manuallyConfiguredPrefixes"
+"""
+input manuallyConfiguredPrefixes_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: manuallyConfiguredPrefixes_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input manuallyConfiguredPrefixes_stream_cursor_value_input {
+  id: uuid
+  ip_version: Int
+  mask_length: Int
+  network: cidr
   reject: Boolean
 }
 
@@ -2600,6 +2817,23 @@ input peeringDataSourceAssociations_set_input {
   data_time: timestamptz
 }
 
+"""
+Streaming cursor of the table "peeringDataSourceAssociations"
+"""
+input peeringDataSourceAssociations_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: peeringDataSourceAssociations_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input peeringDataSourceAssociations_stream_cursor_value_input {
+  data_time: timestamptz
+  id: uuid
+}
+
 input peeringDataSourceAssociations_updates {
   """sets the columns of the filtered rows to the given values"""
   _set: peeringDataSourceAssociations_set_input
@@ -2780,6 +3014,22 @@ enum peerings_select_column {
 }
 
 """
+Streaming cursor of the table "peerings"
+"""
+input peerings_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: peerings_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input peerings_stream_cursor_value_input {
+  id: uuid
+}
+
+"""
 columns and relationships of "main.view_new_prefix_data_source_assoc"
 """
 type prefixDataSourceAssociations {
@@ -2920,6 +3170,24 @@ input type for updating data in table "main.view_new_prefix_data_source_assoc"
 """
 input prefixDataSourceAssociations_set_input {
   data_time: timestamptz
+  withdrawn: Boolean
+}
+
+"""
+Streaming cursor of the table "prefixDataSourceAssociations"
+"""
+input prefixDataSourceAssociations_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: prefixDataSourceAssociations_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input prefixDataSourceAssociations_stream_cursor_value_input {
+  data_time: timestamptz
+  id: uuid
   withdrawn: Boolean
 }
 
@@ -3155,6 +3423,25 @@ type prefixes_stddev_pop_fields {
 type prefixes_stddev_samp_fields {
   ip_version: Float
   mask_length: Float
+}
+
+"""
+Streaming cursor of the table "prefixes"
+"""
+input prefixes_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: prefixes_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input prefixes_stream_cursor_value_input {
+  id: uuid
+  ip_version: Int
+  mask_length: Int
+  network: cidr
 }
 
 """aggregate sum on columns"""
@@ -3939,6 +4226,24 @@ input routeDataSourceAssociations_set_input {
   data_time: timestamptz
 }
 
+"""
+Streaming cursor of the table "routeDataSourceAssociations"
+"""
+input routeDataSourceAssociations_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: routeDataSourceAssociations_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input routeDataSourceAssociations_stream_cursor_value_input {
+  communities: _text
+  data_time: timestamptz
+  id: uuid
+}
+
 input routeDataSourceAssociations_updates {
   """sets the columns of the filtered rows to the given values"""
   _set: routeDataSourceAssociations_set_input
@@ -4164,6 +4469,25 @@ enum routes_select_column {
 }
 
 """
+Streaming cursor of the table "routes"
+"""
+input routes_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: routes_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input routes_stream_cursor_value_input {
+  as_path: String
+  id: uuid
+  rpki_status: String
+  time_inserted: timestamptz
+}
+
+"""
 columns and relationships of "main.view_new_rpki_roa_data_source_assoc"
 """
 type rpkiROADataSourceAssociations {
@@ -4297,6 +4621,23 @@ input type for updating data in table "main.view_new_rpki_roa_data_source_assoc"
 """
 input rpkiROADataSourceAssociations_set_input {
   data_time: timestamptz
+}
+
+"""
+Streaming cursor of the table "rpkiROADataSourceAssociations"
+"""
+input rpkiROADataSourceAssociations_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: rpkiROADataSourceAssociations_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input rpkiROADataSourceAssociations_stream_cursor_value_input {
+  data_time: timestamptz
+  id: uuid
 }
 
 input rpkiROADataSourceAssociations_updates {
@@ -4530,6 +4871,28 @@ type rpkiROAs_stddev_samp_fields {
   max_length: Float
 }
 
+"""
+Streaming cursor of the table "rpkiROAs"
+"""
+input rpkiROAs_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: rpkiROAs_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input rpkiROAs_stream_cursor_value_input {
+  autonomous_system_number: bigint
+  expiry_time: timestamptz
+  id: uuid
+  ip_version: Int
+  mask_length: Int
+  max_length: Int
+  network: cidr
+}
+
 """aggregate sum on columns"""
 type rpkiROAs_sum_fields {
   autonomous_system_number: bigint
@@ -4602,6 +4965,20 @@ type subscription_root {
   ): autonomousSystemDataSourceAssociations_aggregate!
 
   """
+  fetch data from the table in a streaming manner : "main.view_new_autonomous_system_data_source_assoc"
+  """
+  autonomousSystemDataSourceAssociations_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [autonomousSystemDataSourceAssociations_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: autonomousSystemDataSourceAssociations_bool_exp
+  ): [autonomousSystemDataSourceAssociations!]!
+
+  """
   fetch data from the table: "main.view_new_autonomous_system"
   """
   autonomousSystems(
@@ -4642,6 +5019,20 @@ type subscription_root {
   ): autonomousSystems_aggregate!
 
   """
+  fetch data from the table in a streaming manner : "main.view_new_autonomous_system"
+  """
+  autonomousSystems_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [autonomousSystems_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: autonomousSystems_bool_exp
+  ): [autonomousSystems!]!
+
+  """
   fetch data from the table: "conf.view_new_autonomous_system"
   """
   configuredAutonomousSystems(
@@ -4656,6 +5047,20 @@ type subscription_root {
 
     """sort the rows by one or more columns"""
     order_by: [configuredAutonomousSystems_order_by!]
+
+    """filter the rows returned"""
+    where: configuredAutonomousSystems_bool_exp
+  ): [configuredAutonomousSystems!]!
+
+  """
+  fetch data from the table in a streaming manner : "conf.view_new_autonomous_system"
+  """
+  configuredAutonomousSystems_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [configuredAutonomousSystems_stream_cursor_input]!
 
     """filter the rows returned"""
     where: configuredAutonomousSystems_bool_exp
@@ -4682,6 +5087,20 @@ type subscription_root {
   ): [configuredDataServices!]!
 
   """
+  fetch data from the table in a streaming manner : "conf.view_new_data_adapter"
+  """
+  configuredDataServices_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [configuredDataServices_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: configuredDataServices_bool_exp
+  ): [configuredDataServices!]!
+
+  """
   fetch data from the table: "conf.view_new_data_source"
   """
   configuredDataSources(
@@ -4702,6 +5121,20 @@ type subscription_root {
   ): [configuredDataSources!]!
 
   """
+  fetch data from the table in a streaming manner : "conf.view_new_data_source"
+  """
+  configuredDataSources_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [configuredDataSources_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: configuredDataSources_bool_exp
+  ): [configuredDataSources!]!
+
+  """
   fetch data from the table: "conf.view_new_prefix"
   """
   configuredPrefixes(
@@ -4716,6 +5149,20 @@ type subscription_root {
 
     """sort the rows by one or more columns"""
     order_by: [configuredPrefixes_order_by!]
+
+    """filter the rows returned"""
+    where: configuredPrefixes_bool_exp
+  ): [configuredPrefixes!]!
+
+  """
+  fetch data from the table in a streaming manner : "conf.view_new_prefix"
+  """
+  configuredPrefixes_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [configuredPrefixes_stream_cursor_input]!
 
     """filter the rows returned"""
     where: configuredPrefixes_bool_exp
@@ -4760,6 +5207,20 @@ type subscription_root {
   ): dataSourceMetadatas_aggregate!
 
   """
+  fetch data from the table in a streaming manner : "main.view_data_source_metadata"
+  """
+  dataSourceMetadatas_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [dataSourceMetadatas_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: dataSourceMetadatas_bool_exp
+  ): [dataSourceMetadatas!]!
+
+  """
   fetch data from the table: "main.view_new_data_source"
   """
   dataSources(
@@ -4800,6 +5261,20 @@ type subscription_root {
   ): dataSources_aggregate!
 
   """
+  fetch data from the table in a streaming manner : "main.view_new_data_source"
+  """
+  dataSources_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [dataSources_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: dataSources_bool_exp
+  ): [dataSources!]!
+
+  """
   fetch data from the table: "conf.view_new_manual_autonomous_system"
   """
   manuallyConfiguredAutonomousSystems(
@@ -4814,6 +5289,20 @@ type subscription_root {
 
     """sort the rows by one or more columns"""
     order_by: [manuallyConfiguredAutonomousSystems_order_by!]
+
+    """filter the rows returned"""
+    where: manuallyConfiguredAutonomousSystems_bool_exp
+  ): [manuallyConfiguredAutonomousSystems!]!
+
+  """
+  fetch data from the table in a streaming manner : "conf.view_new_manual_autonomous_system"
+  """
+  manuallyConfiguredAutonomousSystems_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [manuallyConfiguredAutonomousSystems_stream_cursor_input]!
 
     """filter the rows returned"""
     where: manuallyConfiguredAutonomousSystems_bool_exp
@@ -4840,6 +5329,20 @@ type subscription_root {
   ): [manuallyConfiguredDataSources!]!
 
   """
+  fetch data from the table in a streaming manner : "conf.view_new_manual_data_source"
+  """
+  manuallyConfiguredDataSources_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [manuallyConfiguredDataSources_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: manuallyConfiguredDataSources_bool_exp
+  ): [manuallyConfiguredDataSources!]!
+
+  """
   fetch data from the table: "conf.view_new_manual_prefix"
   """
   manuallyConfiguredPrefixes(
@@ -4854,6 +5357,20 @@ type subscription_root {
 
     """sort the rows by one or more columns"""
     order_by: [manuallyConfiguredPrefixes_order_by!]
+
+    """filter the rows returned"""
+    where: manuallyConfiguredPrefixes_bool_exp
+  ): [manuallyConfiguredPrefixes!]!
+
+  """
+  fetch data from the table in a streaming manner : "conf.view_new_manual_prefix"
+  """
+  manuallyConfiguredPrefixes_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [manuallyConfiguredPrefixes_stream_cursor_input]!
 
     """filter the rows returned"""
     where: manuallyConfiguredPrefixes_bool_exp
@@ -4898,6 +5415,20 @@ type subscription_root {
   ): peeringDataSourceAssociations_aggregate!
 
   """
+  fetch data from the table in a streaming manner : "main.view_new_peering_link_data_source_assoc"
+  """
+  peeringDataSourceAssociations_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [peeringDataSourceAssociations_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: peeringDataSourceAssociations_bool_exp
+  ): [peeringDataSourceAssociations!]!
+
+  """
   fetch data from the table: "main.view_new_peering_link"
   """
   peerings(
@@ -4937,6 +5468,20 @@ type subscription_root {
     where: peerings_bool_exp
   ): peerings_aggregate!
 
+  """
+  fetch data from the table in a streaming manner : "main.view_new_peering_link"
+  """
+  peerings_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [peerings_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: peerings_bool_exp
+  ): [peerings!]!
+
   """An array relationship"""
   prefixDataSourceAssociations(
     """distinct select on columns"""
@@ -4974,6 +5519,20 @@ type subscription_root {
     """filter the rows returned"""
     where: prefixDataSourceAssociations_bool_exp
   ): prefixDataSourceAssociations_aggregate!
+
+  """
+  fetch data from the table in a streaming manner : "main.view_new_prefix_data_source_assoc"
+  """
+  prefixDataSourceAssociations_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [prefixDataSourceAssociations_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: prefixDataSourceAssociations_bool_exp
+  ): [prefixDataSourceAssociations!]!
 
   """
   fetch data from the table: "main.view_new_prefix"
@@ -5015,6 +5574,20 @@ type subscription_root {
     where: prefixes_bool_exp
   ): prefixes_aggregate!
 
+  """
+  fetch data from the table in a streaming manner : "main.view_new_prefix"
+  """
+  prefixes_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [prefixes_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: prefixes_bool_exp
+  ): [prefixes!]!
+
   """An array relationship"""
   routeDataSourceAssociations(
     """distinct select on columns"""
@@ -5053,6 +5626,20 @@ type subscription_root {
     where: routeDataSourceAssociations_bool_exp
   ): routeDataSourceAssociations_aggregate!
 
+  """
+  fetch data from the table in a streaming manner : "main.view_new_route_data_source_assoc"
+  """
+  routeDataSourceAssociations_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [routeDataSourceAssociations_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: routeDataSourceAssociations_bool_exp
+  ): [routeDataSourceAssociations!]!
+
   """An array relationship"""
   routes(
     """distinct select on columns"""
@@ -5090,6 +5677,20 @@ type subscription_root {
     """filter the rows returned"""
     where: routes_bool_exp
   ): routes_aggregate!
+
+  """
+  fetch data from the table in a streaming manner : "main.view_new_route"
+  """
+  routes_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [routes_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: routes_bool_exp
+  ): [routes!]!
 
   """An array relationship"""
   rpkiROADataSourceAssociations(
@@ -5130,6 +5731,20 @@ type subscription_root {
   ): rpkiROADataSourceAssociations_aggregate!
 
   """
+  fetch data from the table in a streaming manner : "main.view_new_rpki_roa_data_source_assoc"
+  """
+  rpkiROADataSourceAssociations_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [rpkiROADataSourceAssociations_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: rpkiROADataSourceAssociations_bool_exp
+  ): [rpkiROADataSourceAssociations!]!
+
+  """
   fetch data from the table: "main.view_new_rpki_roa"
   """
   rpkiROAs(
@@ -5168,6 +5783,20 @@ type subscription_root {
     """filter the rows returned"""
     where: rpkiROAs_bool_exp
   ): rpkiROAs_aggregate!
+
+  """
+  fetch data from the table in a streaming manner : "main.view_new_rpki_roa"
+  """
+  rpkiROAs_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [rpkiROAs_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: rpkiROAs_bool_exp
+  ): [rpkiROAs!]!
 }
 
 scalar timestamptz
