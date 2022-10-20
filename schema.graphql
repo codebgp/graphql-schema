@@ -3201,6 +3201,9 @@ input prefixDataSourceAssociations_updates {
 columns and relationships of "main.view_new_prefix"
 """
 type prefixes {
+  """best match of input prefixes"""
+  configured_prefix_best_match: String
+
   """
   total number of prefix-data source associations and by extension data sources
   """
@@ -3326,6 +3329,7 @@ input prefixes_bool_exp {
   _and: [prefixes_bool_exp!]
   _not: prefixes_bool_exp
   _or: [prefixes_bool_exp!]
+  configured_prefix_best_match: String_comparison_exp
   data_source_count: Int_comparison_exp
   id: uuid_comparison_exp
   ip_version: Int_comparison_exp
@@ -3380,6 +3384,7 @@ input prefixes_obj_rel_insert_input {
 
 """Ordering options when selecting data from "main.view_new_prefix"."""
 input prefixes_order_by {
+  configured_prefix_best_match: order_by
   data_source_count: order_by
   id: order_by
   ip_version: order_by
