@@ -1765,6 +1765,10 @@ input dataSources_updates {
   where: dataSources_bool_exp!
 }
 
+input is_sub_prefix_prefixes_args {
+  network: cidr
+}
+
 scalar jsonb
 
 input jsonb_cast_exp {
@@ -3210,6 +3214,14 @@ type prefixes {
   data_source_count: Int
   id: uuid
   ip_version: Int
+
+  """is sub prefix of argument"""
+  is_sub_prefix(
+    """
+    input parameters for computed field "is_sub_prefix" defined on table "main.view_new_prefix"
+    """
+    args: is_sub_prefix_prefixes_args!
+  ): Boolean
 
   """
   get the last update of a prefix based on prefix-data source associations
