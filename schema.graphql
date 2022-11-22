@@ -129,6 +129,99 @@ input _text_comparison_exp {
 }
 
 """
+columns and relationships of "conf.view_alert_subscription"
+"""
+type alertSubscriptions {
+  fire_alert_regex: String
+  id: uuid
+  query: String
+  vars(
+    """JSON select path"""
+    path: String
+  ): jsonb
+}
+
+"""
+Boolean expression to filter rows from the table "conf.view_alert_subscription". All fields are combined with a logical 'AND'.
+"""
+input alertSubscriptions_bool_exp {
+  _and: [alertSubscriptions_bool_exp!]
+  _not: alertSubscriptions_bool_exp
+  _or: [alertSubscriptions_bool_exp!]
+  fire_alert_regex: String_comparison_exp
+  id: uuid_comparison_exp
+  query: String_comparison_exp
+  vars: jsonb_comparison_exp
+}
+
+"""
+input type for inserting data into table "conf.view_alert_subscription"
+"""
+input alertSubscriptions_insert_input {
+  fire_alert_regex: String
+  id: uuid
+  query: String
+  vars: jsonb
+}
+
+"""
+response of any mutation on the table "conf.view_alert_subscription"
+"""
+type alertSubscriptions_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [alertSubscriptions!]!
+}
+
+"""
+Ordering options when selecting data from "conf.view_alert_subscription".
+"""
+input alertSubscriptions_order_by {
+  fire_alert_regex: order_by
+  id: order_by
+  query: order_by
+  vars: order_by
+}
+
+"""
+select columns of table "conf.view_alert_subscription"
+"""
+enum alertSubscriptions_select_column {
+  """column name"""
+  fire_alert_regex
+
+  """column name"""
+  id
+
+  """column name"""
+  query
+
+  """column name"""
+  vars
+}
+
+"""
+Streaming cursor of the table "alertSubscriptions"
+"""
+input alertSubscriptions_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: alertSubscriptions_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input alertSubscriptions_stream_cursor_value_input {
+  fire_alert_regex: String
+  id: uuid
+  query: String
+  vars: jsonb
+}
+
+"""
 columns and relationships of "main.view_new_autonomous_system_data_source_assoc"
 """
 type autonomousSystemDataSourceAssociations {
@@ -2119,6 +2212,14 @@ input manuallyConfiguredPrefixes_updates {
 """mutation root"""
 type mutation_root {
   """
+  delete data from the table: "conf.view_alert_subscription"
+  """
+  deleteAlertSubscriptions(
+    """filter the rows which have to be deleted"""
+    where: alertSubscriptions_bool_exp!
+  ): alertSubscriptions_mutation_response
+
+  """
   delete data from the table: "main.view_new_autonomous_system_data_source_assoc"
   """
   deleteAutonomousSystemDataSourceAssociations(
@@ -2189,6 +2290,22 @@ type mutation_root {
     """filter the rows which have to be deleted"""
     where: rpkiROADataSourceAssociations_bool_exp!
   ): rpkiROADataSourceAssociations_mutation_response
+
+  """
+  insert a single row into the table: "conf.view_alert_subscription"
+  """
+  insertAlertSubscription(
+    """the row to be inserted"""
+    object: alertSubscriptions_insert_input!
+  ): alertSubscriptions
+
+  """
+  insert data into the table: "conf.view_alert_subscription"
+  """
+  insertAlertSubscriptions(
+    """the rows to be inserted"""
+    objects: [alertSubscriptions_insert_input!]!
+  ): alertSubscriptions_mutation_response
 
   """
   insert a single row into the table: "main.view_new_autonomous_system"
@@ -3486,6 +3603,26 @@ type prefixes_variance_fields {
 }
 
 type query_root {
+  """
+  fetch data from the table: "conf.view_alert_subscription"
+  """
+  alertSubscriptions(
+    """distinct select on columns"""
+    distinct_on: [alertSubscriptions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alertSubscriptions_order_by!]
+
+    """filter the rows returned"""
+    where: alertSubscriptions_bool_exp
+  ): [alertSubscriptions!]!
+
   """An array relationship"""
   autonomousSystemDataSourceAssociations(
     """distinct select on columns"""
@@ -4943,6 +5080,40 @@ type rpkiROAs_variance_fields {
 }
 
 type subscription_root {
+  """
+  fetch data from the table: "conf.view_alert_subscription"
+  """
+  alertSubscriptions(
+    """distinct select on columns"""
+    distinct_on: [alertSubscriptions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alertSubscriptions_order_by!]
+
+    """filter the rows returned"""
+    where: alertSubscriptions_bool_exp
+  ): [alertSubscriptions!]!
+
+  """
+  fetch data from the table in a streaming manner : "conf.view_alert_subscription"
+  """
+  alertSubscriptions_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [alertSubscriptions_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: alertSubscriptions_bool_exp
+  ): [alertSubscriptions!]!
+
   """An array relationship"""
   autonomousSystemDataSourceAssociations(
     """distinct select on columns"""
