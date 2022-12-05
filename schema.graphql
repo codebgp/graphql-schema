@@ -132,8 +132,11 @@ input _text_comparison_exp {
 columns and relationships of "conf.view_alert_subscription"
 """
 type alertSubscriptions {
+  """activation time of alert subscription"""
+  activation_time: timestamptz
   fire_alert_regex: String
   id: uuid
+  name: String
   query: String
   vars(
     """JSON select path"""
@@ -148,8 +151,10 @@ input alertSubscriptions_bool_exp {
   _and: [alertSubscriptions_bool_exp!]
   _not: alertSubscriptions_bool_exp
   _or: [alertSubscriptions_bool_exp!]
+  activation_time: timestamptz_comparison_exp
   fire_alert_regex: String_comparison_exp
   id: uuid_comparison_exp
+  name: String_comparison_exp
   query: String_comparison_exp
   vars: jsonb_comparison_exp
 }
@@ -160,6 +165,7 @@ input type for inserting data into table "conf.view_alert_subscription"
 input alertSubscriptions_insert_input {
   fire_alert_regex: String
   id: uuid
+  name: String
   query: String
   vars: jsonb
 }
@@ -179,8 +185,10 @@ type alertSubscriptions_mutation_response {
 Ordering options when selecting data from "conf.view_alert_subscription".
 """
 input alertSubscriptions_order_by {
+  activation_time: order_by
   fire_alert_regex: order_by
   id: order_by
+  name: order_by
   query: order_by
   vars: order_by
 }
@@ -190,10 +198,16 @@ select columns of table "conf.view_alert_subscription"
 """
 enum alertSubscriptions_select_column {
   """column name"""
+  activation_time
+
+  """column name"""
   fire_alert_regex
 
   """column name"""
   id
+
+  """column name"""
+  name
 
   """column name"""
   query
@@ -215,10 +229,19 @@ input alertSubscriptions_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input alertSubscriptions_stream_cursor_value_input {
+  """activation time of alert subscription"""
+  activation_time: timestamptz
   fire_alert_regex: String
   id: uuid
+  name: String
   query: String
   vars: jsonb
+}
+
+input as_paths_diff_prefixes_args {
+  base_service: String
+  comp_service: String
+  end_asn: String
 }
 
 """
@@ -3322,6 +3345,16 @@ input prefixDataSourceAssociations_updates {
 columns and relationships of "main.view_new_prefix"
 """
 type prefixes {
+  """
+  as paths of base_service differ from as paths of comp_service up to end_asn
+  """
+  as_paths_diff(
+    """
+    input parameters for computed field "as_paths_diff" defined on table "main.view_new_prefix"
+    """
+    args: as_paths_diff_prefixes_args!
+  ): String
+
   """best match of input prefixes"""
   configured_prefix_best_match: String
 
