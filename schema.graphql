@@ -265,6 +265,17 @@ type autonomousSystemDataSourceAssociations_aggregate {
   nodes: [autonomousSystemDataSourceAssociations!]!
 }
 
+input autonomousSystemDataSourceAssociations_aggregate_bool_exp {
+  count: autonomousSystemDataSourceAssociations_aggregate_bool_exp_count
+}
+
+input autonomousSystemDataSourceAssociations_aggregate_bool_exp_count {
+  arguments: [autonomousSystemDataSourceAssociations_select_column!]
+  distinct: Boolean
+  filter: autonomousSystemDataSourceAssociations_bool_exp
+  predicate: Int_comparison_exp!
+}
+
 """
 aggregate fields of "main.view_new_autonomous_system_data_source_assoc"
 """
@@ -633,13 +644,18 @@ input autonomousSystems_bool_exp {
   _not: autonomousSystems_bool_exp
   _or: [autonomousSystems_bool_exp!]
   autonomousSystemDataSourceAssociations: autonomousSystemDataSourceAssociations_bool_exp
+  autonomousSystemDataSourceAssociations_aggregate: autonomousSystemDataSourceAssociations_aggregate_bool_exp
   data_source_count: Int_comparison_exp
   id: uuid_comparison_exp
   number: bigint_comparison_exp
   peeringLeftAutonomousSystems: peerings_bool_exp
+  peeringLeftAutonomousSystems_aggregate: peerings_aggregate_bool_exp
   peeringRightAutonomousSystems: peerings_bool_exp
+  peeringRightAutonomousSystems_aggregate: peerings_aggregate_bool_exp
   routeNeighborAutonomousSystems: routes_bool_exp
+  routeNeighborAutonomousSystems_aggregate: routes_aggregate_bool_exp
   routeOriginAutonomousSystems: routes_bool_exp
+  routeOriginAutonomousSystems_aggregate: routes_aggregate_bool_exp
 }
 
 """
@@ -1202,6 +1218,17 @@ aggregated selection of "main.view_data_source_metadata"
 type dataSourceMetadatas_aggregate {
   aggregate: dataSourceMetadatas_aggregate_fields
   nodes: [dataSourceMetadatas!]!
+}
+
+input dataSourceMetadatas_aggregate_bool_exp {
+  count: dataSourceMetadatas_aggregate_bool_exp_count
+}
+
+input dataSourceMetadatas_aggregate_bool_exp_count {
+  arguments: [dataSourceMetadatas_select_column!]
+  distinct: Boolean
+  filter: dataSourceMetadatas_bool_exp
+  predicate: Int_comparison_exp!
 }
 
 """
@@ -1782,14 +1809,20 @@ input dataSources_bool_exp {
   _not: dataSources_bool_exp
   _or: [dataSources_bool_exp!]
   autonomousSystemDataSourceAssociations: autonomousSystemDataSourceAssociations_bool_exp
+  autonomousSystemDataSourceAssociations_aggregate: autonomousSystemDataSourceAssociations_aggregate_bool_exp
   dataSourceMetadatas: dataSourceMetadatas_bool_exp
+  dataSourceMetadatas_aggregate: dataSourceMetadatas_aggregate_bool_exp
   data_service: String_comparison_exp
   id: uuid_comparison_exp
   locality: String_comparison_exp
   peeringDataSourceAssociations: peeringDataSourceAssociations_bool_exp
+  peeringDataSourceAssociations_aggregate: peeringDataSourceAssociations_aggregate_bool_exp
   prefixDataSourceAssociations: prefixDataSourceAssociations_bool_exp
+  prefixDataSourceAssociations_aggregate: prefixDataSourceAssociations_aggregate_bool_exp
   routeDataSourceAssociations: routeDataSourceAssociations_bool_exp
+  routeDataSourceAssociations_aggregate: routeDataSourceAssociations_aggregate_bool_exp
   rpkiROADataSourceAssociations: rpkiROADataSourceAssociations_bool_exp
+  rpkiROADataSourceAssociations_aggregate: rpkiROADataSourceAssociations_aggregate_bool_exp
   selector: jsonb_comparison_exp
 }
 
@@ -2846,6 +2879,17 @@ type peeringDataSourceAssociations_aggregate {
   nodes: [peeringDataSourceAssociations!]!
 }
 
+input peeringDataSourceAssociations_aggregate_bool_exp {
+  count: peeringDataSourceAssociations_aggregate_bool_exp_count
+}
+
+input peeringDataSourceAssociations_aggregate_bool_exp_count {
+  arguments: [peeringDataSourceAssociations_select_column!]
+  distinct: Boolean
+  filter: peeringDataSourceAssociations_bool_exp
+  predicate: Int_comparison_exp!
+}
+
 """
 aggregate fields of "main.view_new_peering_link_data_source_assoc"
 """
@@ -3045,6 +3089,17 @@ type peerings_aggregate {
   nodes: [peerings!]!
 }
 
+input peerings_aggregate_bool_exp {
+  count: peerings_aggregate_bool_exp_count
+}
+
+input peerings_aggregate_bool_exp_count {
+  arguments: [peerings_select_column!]
+  distinct: Boolean
+  filter: peerings_bool_exp
+  predicate: Int_comparison_exp!
+}
+
 """
 aggregate fields of "main.view_new_peering_link"
 """
@@ -3081,6 +3136,7 @@ input peerings_bool_exp {
   id: uuid_comparison_exp
   leftAutonomousSystem: autonomousSystems_bool_exp
   peeringDataSourceAssociations: peeringDataSourceAssociations_bool_exp
+  peeringDataSourceAssociations_aggregate: peeringDataSourceAssociations_aggregate_bool_exp
   rightAutonomousSystem: autonomousSystems_bool_exp
 }
 
@@ -3195,6 +3251,33 @@ type prefixDataSourceAssociations_aggregate {
   nodes: [prefixDataSourceAssociations!]!
 }
 
+input prefixDataSourceAssociations_aggregate_bool_exp {
+  bool_and: prefixDataSourceAssociations_aggregate_bool_exp_bool_and
+  bool_or: prefixDataSourceAssociations_aggregate_bool_exp_bool_or
+  count: prefixDataSourceAssociations_aggregate_bool_exp_count
+}
+
+input prefixDataSourceAssociations_aggregate_bool_exp_bool_and {
+  arguments: prefixDataSourceAssociations_select_column_prefixDataSourceAssociations_aggregate_bool_exp_bool_and_arguments_columns!
+  distinct: Boolean
+  filter: prefixDataSourceAssociations_bool_exp
+  predicate: Boolean_comparison_exp!
+}
+
+input prefixDataSourceAssociations_aggregate_bool_exp_bool_or {
+  arguments: prefixDataSourceAssociations_select_column_prefixDataSourceAssociations_aggregate_bool_exp_bool_or_arguments_columns!
+  distinct: Boolean
+  filter: prefixDataSourceAssociations_bool_exp
+  predicate: Boolean_comparison_exp!
+}
+
+input prefixDataSourceAssociations_aggregate_bool_exp_count {
+  arguments: [prefixDataSourceAssociations_select_column!]
+  distinct: Boolean
+  filter: prefixDataSourceAssociations_bool_exp
+  predicate: Int_comparison_exp!
+}
+
 """
 aggregate fields of "main.view_new_prefix_data_source_assoc"
 """
@@ -3305,6 +3388,22 @@ enum prefixDataSourceAssociations_select_column {
   """column name"""
   id
 
+  """column name"""
+  withdrawn
+}
+
+"""
+select "prefixDataSourceAssociations_aggregate_bool_exp_bool_and_arguments_columns" columns of table "main.view_new_prefix_data_source_assoc"
+"""
+enum prefixDataSourceAssociations_select_column_prefixDataSourceAssociations_aggregate_bool_exp_bool_and_arguments_columns {
+  """column name"""
+  withdrawn
+}
+
+"""
+select "prefixDataSourceAssociations_aggregate_bool_exp_bool_or_arguments_columns" columns of table "main.view_new_prefix_data_source_assoc"
+"""
+enum prefixDataSourceAssociations_select_column_prefixDataSourceAssociations_aggregate_bool_exp_bool_or_arguments_columns {
   """column name"""
   withdrawn
 }
@@ -3499,7 +3598,9 @@ input prefixes_bool_exp {
   mask_length: Int_comparison_exp
   network: cidr_comparison_exp
   prefixDataSourceAssociations: prefixDataSourceAssociations_bool_exp
+  prefixDataSourceAssociations_aggregate: prefixDataSourceAssociations_aggregate_bool_exp
   routes: routes_bool_exp
+  routes_aggregate: routes_aggregate_bool_exp
 }
 
 """
@@ -4289,6 +4390,17 @@ type routeDataSourceAssociations_aggregate {
   nodes: [routeDataSourceAssociations!]!
 }
 
+input routeDataSourceAssociations_aggregate_bool_exp {
+  count: routeDataSourceAssociations_aggregate_bool_exp_count
+}
+
+input routeDataSourceAssociations_aggregate_bool_exp_count {
+  arguments: [routeDataSourceAssociations_select_column!]
+  distinct: Boolean
+  filter: routeDataSourceAssociations_bool_exp
+  predicate: Int_comparison_exp!
+}
+
 """
 aggregate fields of "main.view_new_route_data_source_assoc"
 """
@@ -4510,6 +4622,17 @@ type routes_aggregate {
   nodes: [routes!]!
 }
 
+input routes_aggregate_bool_exp {
+  count: routes_aggregate_bool_exp_count
+}
+
+input routes_aggregate_bool_exp_count {
+  arguments: [routes_select_column!]
+  distinct: Boolean
+  filter: routes_bool_exp
+  predicate: Int_comparison_exp!
+}
+
 """
 aggregate fields of "main.view_new_route"
 """
@@ -4549,6 +4672,7 @@ input routes_bool_exp {
   originAutonomousSystem: autonomousSystems_bool_exp
   prefix: prefixes_bool_exp
   routeDataSourceAssociations: routeDataSourceAssociations_bool_exp
+  routeDataSourceAssociations_aggregate: routeDataSourceAssociations_aggregate_bool_exp
   rpki_status: String_comparison_exp
   time_inserted: timestamptz_comparison_exp
   time_updated: timestamptz_comparison_exp
@@ -4693,6 +4817,17 @@ aggregated selection of "main.view_new_rpki_roa_data_source_assoc"
 type rpkiROADataSourceAssociations_aggregate {
   aggregate: rpkiROADataSourceAssociations_aggregate_fields
   nodes: [rpkiROADataSourceAssociations!]!
+}
+
+input rpkiROADataSourceAssociations_aggregate_bool_exp {
+  count: rpkiROADataSourceAssociations_aggregate_bool_exp_count
+}
+
+input rpkiROADataSourceAssociations_aggregate_bool_exp_count {
+  arguments: [rpkiROADataSourceAssociations_select_column!]
+  distinct: Boolean
+  filter: rpkiROADataSourceAssociations_bool_exp
+  predicate: Int_comparison_exp!
 }
 
 """
@@ -4942,6 +5077,7 @@ input rpkiROAs_bool_exp {
   max_length: Int_comparison_exp
   network: cidr_comparison_exp
   rpkiROADataSourceAssociations: rpkiROADataSourceAssociations_bool_exp
+  rpkiROADataSourceAssociations_aggregate: rpkiROADataSourceAssociations_aggregate_bool_exp
 }
 
 """
@@ -5134,7 +5270,7 @@ type subscription_root {
   ): [alertSubscriptions!]!
 
   """
-  fetch data from the table in a streaming manner : "conf.view_alert_subscription"
+  fetch data from the table in a streaming manner: "conf.view_alert_subscription"
   """
   alertSubscriptions_stream(
     """maximum number of rows returned in a single batch"""
@@ -5186,7 +5322,7 @@ type subscription_root {
   ): autonomousSystemDataSourceAssociations_aggregate!
 
   """
-  fetch data from the table in a streaming manner : "main.view_new_autonomous_system_data_source_assoc"
+  fetch data from the table in a streaming manner: "main.view_new_autonomous_system_data_source_assoc"
   """
   autonomousSystemDataSourceAssociations_stream(
     """maximum number of rows returned in a single batch"""
@@ -5240,7 +5376,7 @@ type subscription_root {
   ): autonomousSystems_aggregate!
 
   """
-  fetch data from the table in a streaming manner : "main.view_new_autonomous_system"
+  fetch data from the table in a streaming manner: "main.view_new_autonomous_system"
   """
   autonomousSystems_stream(
     """maximum number of rows returned in a single batch"""
@@ -5274,7 +5410,7 @@ type subscription_root {
   ): [configuredAutonomousSystems!]!
 
   """
-  fetch data from the table in a streaming manner : "conf.view_new_autonomous_system"
+  fetch data from the table in a streaming manner: "conf.view_new_autonomous_system"
   """
   configuredAutonomousSystems_stream(
     """maximum number of rows returned in a single batch"""
@@ -5308,7 +5444,7 @@ type subscription_root {
   ): [configuredDataServices!]!
 
   """
-  fetch data from the table in a streaming manner : "conf.view_new_data_adapter"
+  fetch data from the table in a streaming manner: "conf.view_new_data_adapter"
   """
   configuredDataServices_stream(
     """maximum number of rows returned in a single batch"""
@@ -5342,7 +5478,7 @@ type subscription_root {
   ): [configuredDataSources!]!
 
   """
-  fetch data from the table in a streaming manner : "conf.view_new_data_source"
+  fetch data from the table in a streaming manner: "conf.view_new_data_source"
   """
   configuredDataSources_stream(
     """maximum number of rows returned in a single batch"""
@@ -5376,7 +5512,7 @@ type subscription_root {
   ): [configuredPrefixes!]!
 
   """
-  fetch data from the table in a streaming manner : "conf.view_new_prefix"
+  fetch data from the table in a streaming manner: "conf.view_new_prefix"
   """
   configuredPrefixes_stream(
     """maximum number of rows returned in a single batch"""
@@ -5428,7 +5564,7 @@ type subscription_root {
   ): dataSourceMetadatas_aggregate!
 
   """
-  fetch data from the table in a streaming manner : "main.view_data_source_metadata"
+  fetch data from the table in a streaming manner: "main.view_data_source_metadata"
   """
   dataSourceMetadatas_stream(
     """maximum number of rows returned in a single batch"""
@@ -5482,7 +5618,7 @@ type subscription_root {
   ): dataSources_aggregate!
 
   """
-  fetch data from the table in a streaming manner : "main.view_new_data_source"
+  fetch data from the table in a streaming manner: "main.view_new_data_source"
   """
   dataSources_stream(
     """maximum number of rows returned in a single batch"""
@@ -5516,7 +5652,7 @@ type subscription_root {
   ): [manuallyConfiguredAutonomousSystems!]!
 
   """
-  fetch data from the table in a streaming manner : "conf.view_new_manual_autonomous_system"
+  fetch data from the table in a streaming manner: "conf.view_new_manual_autonomous_system"
   """
   manuallyConfiguredAutonomousSystems_stream(
     """maximum number of rows returned in a single batch"""
@@ -5550,7 +5686,7 @@ type subscription_root {
   ): [manuallyConfiguredDataSources!]!
 
   """
-  fetch data from the table in a streaming manner : "conf.view_new_manual_data_source"
+  fetch data from the table in a streaming manner: "conf.view_new_manual_data_source"
   """
   manuallyConfiguredDataSources_stream(
     """maximum number of rows returned in a single batch"""
@@ -5584,7 +5720,7 @@ type subscription_root {
   ): [manuallyConfiguredPrefixes!]!
 
   """
-  fetch data from the table in a streaming manner : "conf.view_new_manual_prefix"
+  fetch data from the table in a streaming manner: "conf.view_new_manual_prefix"
   """
   manuallyConfiguredPrefixes_stream(
     """maximum number of rows returned in a single batch"""
@@ -5636,7 +5772,7 @@ type subscription_root {
   ): peeringDataSourceAssociations_aggregate!
 
   """
-  fetch data from the table in a streaming manner : "main.view_new_peering_link_data_source_assoc"
+  fetch data from the table in a streaming manner: "main.view_new_peering_link_data_source_assoc"
   """
   peeringDataSourceAssociations_stream(
     """maximum number of rows returned in a single batch"""
@@ -5690,7 +5826,7 @@ type subscription_root {
   ): peerings_aggregate!
 
   """
-  fetch data from the table in a streaming manner : "main.view_new_peering_link"
+  fetch data from the table in a streaming manner: "main.view_new_peering_link"
   """
   peerings_stream(
     """maximum number of rows returned in a single batch"""
@@ -5742,7 +5878,7 @@ type subscription_root {
   ): prefixDataSourceAssociations_aggregate!
 
   """
-  fetch data from the table in a streaming manner : "main.view_new_prefix_data_source_assoc"
+  fetch data from the table in a streaming manner: "main.view_new_prefix_data_source_assoc"
   """
   prefixDataSourceAssociations_stream(
     """maximum number of rows returned in a single batch"""
@@ -5796,7 +5932,7 @@ type subscription_root {
   ): prefixes_aggregate!
 
   """
-  fetch data from the table in a streaming manner : "main.view_new_prefix"
+  fetch data from the table in a streaming manner: "main.view_new_prefix"
   """
   prefixes_stream(
     """maximum number of rows returned in a single batch"""
@@ -5848,7 +5984,7 @@ type subscription_root {
   ): routeDataSourceAssociations_aggregate!
 
   """
-  fetch data from the table in a streaming manner : "main.view_new_route_data_source_assoc"
+  fetch data from the table in a streaming manner: "main.view_new_route_data_source_assoc"
   """
   routeDataSourceAssociations_stream(
     """maximum number of rows returned in a single batch"""
@@ -5900,7 +6036,7 @@ type subscription_root {
   ): routes_aggregate!
 
   """
-  fetch data from the table in a streaming manner : "main.view_new_route"
+  fetch data from the table in a streaming manner: "main.view_new_route"
   """
   routes_stream(
     """maximum number of rows returned in a single batch"""
@@ -5952,7 +6088,7 @@ type subscription_root {
   ): rpkiROADataSourceAssociations_aggregate!
 
   """
-  fetch data from the table in a streaming manner : "main.view_new_rpki_roa_data_source_assoc"
+  fetch data from the table in a streaming manner: "main.view_new_rpki_roa_data_source_assoc"
   """
   rpkiROADataSourceAssociations_stream(
     """maximum number of rows returned in a single batch"""
@@ -6006,7 +6142,7 @@ type subscription_root {
   ): rpkiROAs_aggregate!
 
   """
-  fetch data from the table in a streaming manner : "main.view_new_rpki_roa"
+  fetch data from the table in a streaming manner: "main.view_new_rpki_roa"
   """
   rpkiROAs_stream(
     """maximum number of rows returned in a single batch"""
