@@ -149,6 +149,24 @@ type alertSeverities {
     """filter the rows returned"""
     where: alertSubscriptions_bool_exp
   ): [alertSubscriptions!]!
+
+  """An aggregate relationship"""
+  alertSubscriptions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [alertSubscriptions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alertSubscriptions_order_by!]
+
+    """filter the rows returned"""
+    where: alertSubscriptions_bool_exp
+  ): alertSubscriptions_aggregate!
   id: String
   label: String
 }
@@ -161,6 +179,7 @@ input alertSeverities_bool_exp {
   _not: alertSeverities_bool_exp
   _or: [alertSeverities_bool_exp!]
   alertSubscriptions: alertSubscriptions_bool_exp
+  alertSubscriptions_aggregate: alertSubscriptions_aggregate_bool_exp
   id: String_comparison_exp
   label: String_comparison_exp
 }
@@ -204,7 +223,7 @@ input alertSeverities_stream_cursor_value_input {
 columns and relationships of "conf.view_alert_subscription"
 """
 type alertSubscriptions {
-  """activation time of alert subscription"""
+  """activation time of custom alert subscription"""
   activation_time: timestamptz
 
   """An object relationship"""
@@ -223,6 +242,34 @@ type alertSubscriptions {
     """JSON select path"""
     path: String
   ): jsonb
+}
+
+"""
+aggregated selection of "conf.view_alert_subscription"
+"""
+type alertSubscriptions_aggregate {
+  aggregate: alertSubscriptions_aggregate_fields
+  nodes: [alertSubscriptions!]!
+}
+
+input alertSubscriptions_aggregate_bool_exp {
+  count: alertSubscriptions_aggregate_bool_exp_count
+}
+
+input alertSubscriptions_aggregate_bool_exp_count {
+  arguments: [alertSubscriptions_select_column!]
+  distinct: Boolean
+  filter: alertSubscriptions_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "conf.view_alert_subscription"
+"""
+type alertSubscriptions_aggregate_fields {
+  count(columns: [alertSubscriptions_select_column!], distinct: Boolean): Int!
+  max: alertSubscriptions_max_fields
+  min: alertSubscriptions_min_fields
 }
 
 """
@@ -268,11 +315,24 @@ input alertSubscriptions_insert_input {
   vars: jsonb
 }
 
+"""aggregate max on columns"""
+type alertSubscriptions_max_fields {
+  """activation time of custom alert subscription"""
+  activation_time: timestamptz
+  description: String
+  fire_alert_regex: String
+  id: uuid
+  name: String
+  query: String
+  severity: String
+  type: String
+}
+
 """
 order by max() on columns of table "conf.view_alert_subscription"
 """
 input alertSubscriptions_max_order_by {
-  """activation time of alert subscription"""
+  """activation time of custom alert subscription"""
   activation_time: order_by
   description: order_by
   fire_alert_regex: order_by
@@ -283,11 +343,24 @@ input alertSubscriptions_max_order_by {
   type: order_by
 }
 
+"""aggregate min on columns"""
+type alertSubscriptions_min_fields {
+  """activation time of custom alert subscription"""
+  activation_time: timestamptz
+  description: String
+  fire_alert_regex: String
+  id: uuid
+  name: String
+  query: String
+  severity: String
+  type: String
+}
+
 """
 order by min() on columns of table "conf.view_alert_subscription"
 """
 input alertSubscriptions_min_order_by {
-  """activation time of alert subscription"""
+  """activation time of custom alert subscription"""
   activation_time: order_by
   description: order_by
   fire_alert_regex: order_by
@@ -371,7 +444,7 @@ input alertSubscriptions_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input alertSubscriptions_stream_cursor_value_input {
-  """activation time of alert subscription"""
+  """activation time of custom alert subscription"""
   activation_time: timestamptz
   description: String
   fire_alert_regex: String
@@ -404,6 +477,24 @@ type alertTypes {
     """filter the rows returned"""
     where: alertSubscriptions_bool_exp
   ): [alertSubscriptions!]!
+
+  """An aggregate relationship"""
+  alertSubscriptions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [alertSubscriptions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alertSubscriptions_order_by!]
+
+    """filter the rows returned"""
+    where: alertSubscriptions_bool_exp
+  ): alertSubscriptions_aggregate!
   id: String
   label: String
 }
@@ -416,6 +507,7 @@ input alertTypes_bool_exp {
   _not: alertTypes_bool_exp
   _or: [alertTypes_bool_exp!]
   alertSubscriptions: alertSubscriptions_bool_exp
+  alertSubscriptions_aggregate: alertSubscriptions_aggregate_bool_exp
   id: String_comparison_exp
   label: String_comparison_exp
 }
@@ -4012,6 +4104,26 @@ type query_root {
   ): [alertSubscriptions!]!
 
   """
+  fetch aggregated fields from the table: "conf.view_alert_subscription"
+  """
+  alertSubscriptionsAggregate(
+    """distinct select on columns"""
+    distinct_on: [alertSubscriptions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alertSubscriptions_order_by!]
+
+    """filter the rows returned"""
+    where: alertSubscriptions_bool_exp
+  ): alertSubscriptions_aggregate!
+
+  """
   fetch data from the table: "conf.view_alert_type"
   """
   alertTypes(
@@ -5574,6 +5686,26 @@ type subscription_root {
     """filter the rows returned"""
     where: alertSubscriptions_bool_exp
   ): [alertSubscriptions!]!
+
+  """
+  fetch aggregated fields from the table: "conf.view_alert_subscription"
+  """
+  alertSubscriptionsAggregate(
+    """distinct select on columns"""
+    distinct_on: [alertSubscriptions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alertSubscriptions_order_by!]
+
+    """filter the rows returned"""
+    where: alertSubscriptions_bool_exp
+  ): alertSubscriptions_aggregate!
 
   """
   fetch data from the table in a streaming manner: "conf.view_alert_subscription"
