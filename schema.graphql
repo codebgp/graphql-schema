@@ -129,6 +129,99 @@ input _text_comparison_exp {
 }
 
 """
+columns and relationships of "conf.view_alert_receiver_type"
+"""
+type alertReceiverTypes {
+  """An array relationship"""
+  alertSubscriptions(
+    """distinct select on columns"""
+    distinct_on: [alertSubscriptions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alertSubscriptions_order_by!]
+
+    """filter the rows returned"""
+    where: alertSubscriptions_bool_exp
+  ): [alertSubscriptions!]!
+
+  """An aggregate relationship"""
+  alertSubscriptions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [alertSubscriptions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alertSubscriptions_order_by!]
+
+    """filter the rows returned"""
+    where: alertSubscriptions_bool_exp
+  ): alertSubscriptions_aggregate!
+  id: String
+  label: String
+}
+
+"""
+Boolean expression to filter rows from the table "conf.view_alert_receiver_type". All fields are combined with a logical 'AND'.
+"""
+input alertReceiverTypes_bool_exp {
+  _and: [alertReceiverTypes_bool_exp!]
+  _not: alertReceiverTypes_bool_exp
+  _or: [alertReceiverTypes_bool_exp!]
+  alertSubscriptions: alertSubscriptions_bool_exp
+  alertSubscriptions_aggregate: alertSubscriptions_aggregate_bool_exp
+  id: String_comparison_exp
+  label: String_comparison_exp
+}
+
+"""
+Ordering options when selecting data from "conf.view_alert_receiver_type".
+"""
+input alertReceiverTypes_order_by {
+  alertSubscriptions_aggregate: alertSubscriptions_aggregate_order_by
+  id: order_by
+  label: order_by
+}
+
+"""
+select columns of table "conf.view_alert_receiver_type"
+"""
+enum alertReceiverTypes_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  label
+}
+
+"""
+Streaming cursor of the table "alertReceiverTypes"
+"""
+input alertReceiverTypes_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: alertReceiverTypes_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input alertReceiverTypes_stream_cursor_value_input {
+  id: String
+  label: String
+}
+
+"""
 columns and relationships of "conf.view_alert_severity"
 """
 type alertSeverities {
@@ -227,6 +320,9 @@ type alertSubscriptions {
   activation_time: timestamptz
 
   """An object relationship"""
+  alertReceiverType: alertReceiverTypes
+
+  """An object relationship"""
   alertSeverity: alertSeverities
 
   """An object relationship"""
@@ -236,6 +332,8 @@ type alertSubscriptions {
   id: uuid
   name: String
   query: String
+  receiver_endpoint: String
+  receiver_type: String
   severity: String
   type: String
   vars(
@@ -289,6 +387,7 @@ input alertSubscriptions_bool_exp {
   _not: alertSubscriptions_bool_exp
   _or: [alertSubscriptions_bool_exp!]
   activation_time: timestamptz_comparison_exp
+  alertReceiverType: alertReceiverTypes_bool_exp
   alertSeverity: alertSeverities_bool_exp
   alertType: alertTypes_bool_exp
   description: String_comparison_exp
@@ -296,6 +395,8 @@ input alertSubscriptions_bool_exp {
   id: uuid_comparison_exp
   name: String_comparison_exp
   query: String_comparison_exp
+  receiver_endpoint: String_comparison_exp
+  receiver_type: String_comparison_exp
   severity: String_comparison_exp
   type: String_comparison_exp
   vars: jsonb_comparison_exp
@@ -310,6 +411,8 @@ input alertSubscriptions_insert_input {
   id: uuid
   name: String
   query: String
+  receiver_endpoint: String
+  receiver_type: String
   severity: String
   type: String
   vars: jsonb
@@ -324,6 +427,8 @@ type alertSubscriptions_max_fields {
   id: uuid
   name: String
   query: String
+  receiver_endpoint: String
+  receiver_type: String
   severity: String
   type: String
 }
@@ -339,6 +444,8 @@ input alertSubscriptions_max_order_by {
   id: order_by
   name: order_by
   query: order_by
+  receiver_endpoint: order_by
+  receiver_type: order_by
   severity: order_by
   type: order_by
 }
@@ -352,6 +459,8 @@ type alertSubscriptions_min_fields {
   id: uuid
   name: String
   query: String
+  receiver_endpoint: String
+  receiver_type: String
   severity: String
   type: String
 }
@@ -367,6 +476,8 @@ input alertSubscriptions_min_order_by {
   id: order_by
   name: order_by
   query: order_by
+  receiver_endpoint: order_by
+  receiver_type: order_by
   severity: order_by
   type: order_by
 }
@@ -387,6 +498,7 @@ Ordering options when selecting data from "conf.view_alert_subscription".
 """
 input alertSubscriptions_order_by {
   activation_time: order_by
+  alertReceiverType: alertReceiverTypes_order_by
   alertSeverity: alertSeverities_order_by
   alertType: alertTypes_order_by
   description: order_by
@@ -394,6 +506,8 @@ input alertSubscriptions_order_by {
   id: order_by
   name: order_by
   query: order_by
+  receiver_endpoint: order_by
+  receiver_type: order_by
   severity: order_by
   type: order_by
   vars: order_by
@@ -420,6 +534,12 @@ enum alertSubscriptions_select_column {
 
   """column name"""
   query
+
+  """column name"""
+  receiver_endpoint
+
+  """column name"""
+  receiver_type
 
   """column name"""
   severity
@@ -451,6 +571,8 @@ input alertSubscriptions_stream_cursor_value_input {
   id: uuid
   name: String
   query: String
+  receiver_endpoint: String
+  receiver_type: String
   severity: String
   type: String
   vars: jsonb
@@ -4066,6 +4188,26 @@ type prefixes_variance_fields {
 
 type query_root {
   """
+  fetch data from the table: "conf.view_alert_receiver_type"
+  """
+  alertReceiverTypes(
+    """distinct select on columns"""
+    distinct_on: [alertReceiverTypes_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alertReceiverTypes_order_by!]
+
+    """filter the rows returned"""
+    where: alertReceiverTypes_bool_exp
+  ): [alertReceiverTypes!]!
+
+  """
   fetch data from the table: "conf.view_alert_severity"
   """
   alertSeverities(
@@ -5635,6 +5777,40 @@ type rpkiROAs_variance_fields {
 }
 
 type subscription_root {
+  """
+  fetch data from the table: "conf.view_alert_receiver_type"
+  """
+  alertReceiverTypes(
+    """distinct select on columns"""
+    distinct_on: [alertReceiverTypes_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alertReceiverTypes_order_by!]
+
+    """filter the rows returned"""
+    where: alertReceiverTypes_bool_exp
+  ): [alertReceiverTypes!]!
+
+  """
+  fetch data from the table in a streaming manner: "conf.view_alert_receiver_type"
+  """
+  alertReceiverTypes_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [alertReceiverTypes_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: alertReceiverTypes_bool_exp
+  ): [alertReceiverTypes!]!
+
   """
   fetch data from the table: "conf.view_alert_severity"
   """
