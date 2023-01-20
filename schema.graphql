@@ -111,6 +111,8 @@ input String_comparison_exp {
   _similar: String
 }
 
+scalar _cidr
+
 scalar _text
 
 """
@@ -2355,6 +2357,10 @@ input dataSources_updates {
   where: dataSources_bool_exp!
 }
 
+input is_sub_prefix_multiple_prefixes_args {
+  networks: _cidr
+}
+
 input is_sub_prefix_prefixes_args {
   network: cidr
 }
@@ -3921,6 +3927,14 @@ type prefixes {
     """
     args: is_sub_prefix_prefixes_args!
   ): Boolean
+
+  """is sub prefix of argument (multiple element list)"""
+  is_sub_prefix_multiple(
+    """
+    input parameters for computed field "is_sub_prefix_multiple" defined on table "main.view_new_prefix"
+    """
+    args: is_sub_prefix_multiple_prefixes_args!
+  ): String
 
   """
   get the last update of a prefix based on prefix-data source associations
