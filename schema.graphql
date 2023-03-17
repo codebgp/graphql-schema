@@ -964,7 +964,7 @@ type autonomousSystems {
   number: bigint
 
   """
-  AS-originated prefixes of base_service|base_selector_field_name|base_selector_field_value differ from prefixes of comp_service|comp_selector_field_name|comp_selector_field_value
+  AS-originated prefixes of base_service differ from prefixes of comp_service
   """
   orig_prefixes_diff(
     """
@@ -3415,11 +3415,7 @@ enum order_by {
 }
 
 input orig_prefixes_diff_autonomousSystems_args {
-  base_selector_field_name: String
-  base_selector_field_value: String
   base_service: String
-  comp_selector_field_name: String
-  comp_selector_field_value: String
   comp_service: String
 }
 
