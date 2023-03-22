@@ -4048,6 +4048,9 @@ type prefixes {
   mask_length: Int
   network: cidr
 
+  """a string representation of the prefix CIDR network"""
+  network_str: String
+
   """An array relationship"""
   prefixDataSourceAssociations(
     """distinct select on columns"""
@@ -4166,6 +4169,7 @@ input prefixes_bool_exp {
   last_update: timestamptz_comparison_exp
   mask_length: Int_comparison_exp
   network: cidr_comparison_exp
+  network_str: String_comparison_exp
   prefixDataSourceAssociations: prefixDataSourceAssociations_bool_exp
   prefixDataSourceAssociations_aggregate: prefixDataSourceAssociations_aggregate_bool_exp
   routes: routes_bool_exp
@@ -4223,6 +4227,7 @@ input prefixes_order_by {
   last_update: order_by
   mask_length: order_by
   network: order_by
+  network_str: order_by
   prefixDataSourceAssociations_aggregate: prefixDataSourceAssociations_aggregate_order_by
   routes_aggregate: routes_aggregate_order_by
 }
@@ -5202,6 +5207,9 @@ columns and relationships of "main.view_new_route"
 type routes {
   as_path: String
 
+  """length of AS path"""
+  as_path_length: Int
+
   """
   if bogon ASes are contained in-path return the corresponding AS and RFC
   """
@@ -5318,6 +5326,7 @@ input routes_bool_exp {
   _not: routes_bool_exp
   _or: [routes_bool_exp!]
   as_path: String_comparison_exp
+  as_path_length: Int_comparison_exp
   contains_bogon_ases: String_comparison_exp
   data_source_count: Int_comparison_exp
   id: uuid_comparison_exp
@@ -5404,6 +5413,7 @@ input routes_obj_rel_insert_input {
 """Ordering options when selecting data from "main.view_new_route"."""
 input routes_order_by {
   as_path: order_by
+  as_path_length: order_by
   contains_bogon_ases: order_by
   data_source_count: order_by
   id: order_by
