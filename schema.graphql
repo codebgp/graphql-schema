@@ -1290,6 +1290,76 @@ type autonomousSystems_variance_fields {
   number: Float
 }
 
+"""
+columns and relationships of "main.view_bgp_update_rate"
+"""
+type bgpUpdateRate {
+  id: uuid
+  labels(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  time_updated: timestamptz
+  value: float8
+}
+
+"""
+Boolean expression to filter rows from the table "main.view_bgp_update_rate". All fields are combined with a logical 'AND'.
+"""
+input bgpUpdateRate_bool_exp {
+  _and: [bgpUpdateRate_bool_exp!]
+  _not: bgpUpdateRate_bool_exp
+  _or: [bgpUpdateRate_bool_exp!]
+  id: uuid_comparison_exp
+  labels: jsonb_comparison_exp
+  time_updated: timestamptz_comparison_exp
+  value: float8_comparison_exp
+}
+
+"""Ordering options when selecting data from "main.view_bgp_update_rate"."""
+input bgpUpdateRate_order_by {
+  id: order_by
+  labels: order_by
+  time_updated: order_by
+  value: order_by
+}
+
+"""
+select columns of table "main.view_bgp_update_rate"
+"""
+enum bgpUpdateRate_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  labels
+
+  """column name"""
+  time_updated
+
+  """column name"""
+  value
+}
+
+"""
+Streaming cursor of the table "bgpUpdateRate"
+"""
+input bgpUpdateRate_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: bgpUpdateRate_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input bgpUpdateRate_stream_cursor_value_input {
+  id: uuid
+  labels: jsonb
+  time_updated: timestamptz
+  value: float8
+}
+
 scalar bigint
 
 """
@@ -2426,6 +2496,23 @@ input dataSources_updates {
   where: dataSources_bool_exp!
 }
 
+scalar float8
+
+"""
+Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'.
+"""
+input float8_comparison_exp {
+  _eq: float8
+  _gt: float8
+  _gte: float8
+  _in: [float8!]
+  _is_null: Boolean
+  _lt: float8
+  _lte: float8
+  _neq: float8
+  _nin: [float8!]
+}
+
 input is_sub_prefix_multiple_prefixes_args {
   networks: _cidr
 }
@@ -2779,6 +2866,78 @@ input manuallyConfiguredPrefixes_updates {
   """sets the columns of the filtered rows to the given values"""
   _set: manuallyConfiguredPrefixes_set_input
   where: manuallyConfiguredPrefixes_bool_exp!
+}
+
+"""
+columns and relationships of "main.view_max_bgp_update_rate"
+"""
+type maxBGPUpdateRate {
+  id: uuid
+  labels(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  time_updated: timestamptz
+  value: float8
+}
+
+"""
+Boolean expression to filter rows from the table "main.view_max_bgp_update_rate". All fields are combined with a logical 'AND'.
+"""
+input maxBGPUpdateRate_bool_exp {
+  _and: [maxBGPUpdateRate_bool_exp!]
+  _not: maxBGPUpdateRate_bool_exp
+  _or: [maxBGPUpdateRate_bool_exp!]
+  id: uuid_comparison_exp
+  labels: jsonb_comparison_exp
+  time_updated: timestamptz_comparison_exp
+  value: float8_comparison_exp
+}
+
+"""
+Ordering options when selecting data from "main.view_max_bgp_update_rate".
+"""
+input maxBGPUpdateRate_order_by {
+  id: order_by
+  labels: order_by
+  time_updated: order_by
+  value: order_by
+}
+
+"""
+select columns of table "main.view_max_bgp_update_rate"
+"""
+enum maxBGPUpdateRate_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  labels
+
+  """column name"""
+  time_updated
+
+  """column name"""
+  value
+}
+
+"""
+Streaming cursor of the table "maxBGPUpdateRate"
+"""
+input maxBGPUpdateRate_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: maxBGPUpdateRate_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input maxBGPUpdateRate_stream_cursor_value_input {
+  id: uuid
+  labels: jsonb
+  time_updated: timestamptz
+  value: float8
 }
 
 """mutation root"""
@@ -4488,6 +4647,26 @@ type query_root {
   ): autonomousSystems_aggregate!
 
   """
+  fetch data from the table: "main.view_bgp_update_rate"
+  """
+  bgpUpdateRate(
+    """distinct select on columns"""
+    distinct_on: [bgpUpdateRate_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [bgpUpdateRate_order_by!]
+
+    """filter the rows returned"""
+    where: bgpUpdateRate_bool_exp
+  ): [bgpUpdateRate!]!
+
+  """
   fetch data from the table: "conf.view_new_autonomous_system"
   """
   configuredAutonomousSystems(
@@ -4704,6 +4883,26 @@ type query_root {
     """filter the rows returned"""
     where: manuallyConfiguredPrefixes_bool_exp
   ): [manuallyConfiguredPrefixes!]!
+
+  """
+  fetch data from the table: "main.view_max_bgp_update_rate"
+  """
+  maxBGPUpdateRate(
+    """distinct select on columns"""
+    distinct_on: [maxBGPUpdateRate_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [maxBGPUpdateRate_order_by!]
+
+    """filter the rows returned"""
+    where: maxBGPUpdateRate_bool_exp
+  ): [maxBGPUpdateRate!]!
 
   """An array relationship"""
   peeringDataSourceAssociations(
@@ -6174,6 +6373,40 @@ type subscription_root {
   ): [autonomousSystems!]!
 
   """
+  fetch data from the table: "main.view_bgp_update_rate"
+  """
+  bgpUpdateRate(
+    """distinct select on columns"""
+    distinct_on: [bgpUpdateRate_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [bgpUpdateRate_order_by!]
+
+    """filter the rows returned"""
+    where: bgpUpdateRate_bool_exp
+  ): [bgpUpdateRate!]!
+
+  """
+  fetch data from the table in a streaming manner: "main.view_bgp_update_rate"
+  """
+  bgpUpdateRate_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [bgpUpdateRate_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: bgpUpdateRate_bool_exp
+  ): [bgpUpdateRate!]!
+
+  """
   fetch data from the table: "conf.view_new_autonomous_system"
   """
   configuredAutonomousSystems(
@@ -6516,6 +6749,40 @@ type subscription_root {
     """filter the rows returned"""
     where: manuallyConfiguredPrefixes_bool_exp
   ): [manuallyConfiguredPrefixes!]!
+
+  """
+  fetch data from the table: "main.view_max_bgp_update_rate"
+  """
+  maxBGPUpdateRate(
+    """distinct select on columns"""
+    distinct_on: [maxBGPUpdateRate_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [maxBGPUpdateRate_order_by!]
+
+    """filter the rows returned"""
+    where: maxBGPUpdateRate_bool_exp
+  ): [maxBGPUpdateRate!]!
+
+  """
+  fetch data from the table in a streaming manner: "main.view_max_bgp_update_rate"
+  """
+  maxBGPUpdateRate_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [maxBGPUpdateRate_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: maxBGPUpdateRate_bool_exp
+  ): [maxBGPUpdateRate!]!
 
   """An array relationship"""
   peeringDataSourceAssociations(
