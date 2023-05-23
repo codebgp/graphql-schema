@@ -1291,6 +1291,78 @@ type autonomousSystems_variance_fields {
 }
 
 """
+columns and relationships of "main.view_avg_bgp_update_rate"
+"""
+type avgBGPUpdateRate {
+  id: uuid
+  labels(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  time_updated: timestamptz
+  value: float8
+}
+
+"""
+Boolean expression to filter rows from the table "main.view_avg_bgp_update_rate". All fields are combined with a logical 'AND'.
+"""
+input avgBGPUpdateRate_bool_exp {
+  _and: [avgBGPUpdateRate_bool_exp!]
+  _not: avgBGPUpdateRate_bool_exp
+  _or: [avgBGPUpdateRate_bool_exp!]
+  id: uuid_comparison_exp
+  labels: jsonb_comparison_exp
+  time_updated: timestamptz_comparison_exp
+  value: float8_comparison_exp
+}
+
+"""
+Ordering options when selecting data from "main.view_avg_bgp_update_rate".
+"""
+input avgBGPUpdateRate_order_by {
+  id: order_by
+  labels: order_by
+  time_updated: order_by
+  value: order_by
+}
+
+"""
+select columns of table "main.view_avg_bgp_update_rate"
+"""
+enum avgBGPUpdateRate_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  labels
+
+  """column name"""
+  time_updated
+
+  """column name"""
+  value
+}
+
+"""
+Streaming cursor of the table "avgBGPUpdateRate"
+"""
+input avgBGPUpdateRate_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: avgBGPUpdateRate_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input avgBGPUpdateRate_stream_cursor_value_input {
+  id: uuid
+  labels: jsonb
+  time_updated: timestamptz
+  value: float8
+}
+
+"""
 columns and relationships of "main.view_bgp_update_rate"
 """
 type bgpUpdateRate {
@@ -4647,6 +4719,26 @@ type query_root {
   ): autonomousSystems_aggregate!
 
   """
+  fetch data from the table: "main.view_avg_bgp_update_rate"
+  """
+  avgBGPUpdateRate(
+    """distinct select on columns"""
+    distinct_on: [avgBGPUpdateRate_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [avgBGPUpdateRate_order_by!]
+
+    """filter the rows returned"""
+    where: avgBGPUpdateRate_bool_exp
+  ): [avgBGPUpdateRate!]!
+
+  """
   fetch data from the table: "main.view_bgp_update_rate"
   """
   bgpUpdateRate(
@@ -6371,6 +6463,40 @@ type subscription_root {
     """filter the rows returned"""
     where: autonomousSystems_bool_exp
   ): [autonomousSystems!]!
+
+  """
+  fetch data from the table: "main.view_avg_bgp_update_rate"
+  """
+  avgBGPUpdateRate(
+    """distinct select on columns"""
+    distinct_on: [avgBGPUpdateRate_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [avgBGPUpdateRate_order_by!]
+
+    """filter the rows returned"""
+    where: avgBGPUpdateRate_bool_exp
+  ): [avgBGPUpdateRate!]!
+
+  """
+  fetch data from the table in a streaming manner: "main.view_avg_bgp_update_rate"
+  """
+  avgBGPUpdateRate_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [avgBGPUpdateRate_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: avgBGPUpdateRate_bool_exp
+  ): [avgBGPUpdateRate!]!
 
   """
   fetch data from the table: "main.view_bgp_update_rate"
