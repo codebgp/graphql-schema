@@ -740,6 +740,196 @@ input alertTypes_stream_cursor_value_input {
   label: String
 }
 
+"""
+columns and relationships of "main.view_alert"
+"""
+type alerts {
+  data: String
+  description: String
+  ends_at: timestamptz
+  fire_alert_regex: String
+  id: uuid
+  name: String
+  query: String
+  receiver_endpoint: String
+  receiver_type: String
+  severity: String
+  starts_at: timestamptz
+  status: String
+  type: String
+  vars: String
+}
+
+"""
+aggregated selection of "main.view_alert"
+"""
+type alerts_aggregate {
+  aggregate: alerts_aggregate_fields
+  nodes: [alerts!]!
+}
+
+"""
+aggregate fields of "main.view_alert"
+"""
+type alerts_aggregate_fields {
+  count(columns: [alerts_select_column!], distinct: Boolean): Int!
+  max: alerts_max_fields
+  min: alerts_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "main.view_alert". All fields are combined with a logical 'AND'.
+"""
+input alerts_bool_exp {
+  _and: [alerts_bool_exp!]
+  _not: alerts_bool_exp
+  _or: [alerts_bool_exp!]
+  data: String_comparison_exp
+  description: String_comparison_exp
+  ends_at: timestamptz_comparison_exp
+  fire_alert_regex: String_comparison_exp
+  id: uuid_comparison_exp
+  name: String_comparison_exp
+  query: String_comparison_exp
+  receiver_endpoint: String_comparison_exp
+  receiver_type: String_comparison_exp
+  severity: String_comparison_exp
+  starts_at: timestamptz_comparison_exp
+  status: String_comparison_exp
+  type: String_comparison_exp
+  vars: String_comparison_exp
+}
+
+"""aggregate max on columns"""
+type alerts_max_fields {
+  data: String
+  description: String
+  ends_at: timestamptz
+  fire_alert_regex: String
+  id: uuid
+  name: String
+  query: String
+  receiver_endpoint: String
+  receiver_type: String
+  severity: String
+  starts_at: timestamptz
+  status: String
+  type: String
+  vars: String
+}
+
+"""aggregate min on columns"""
+type alerts_min_fields {
+  data: String
+  description: String
+  ends_at: timestamptz
+  fire_alert_regex: String
+  id: uuid
+  name: String
+  query: String
+  receiver_endpoint: String
+  receiver_type: String
+  severity: String
+  starts_at: timestamptz
+  status: String
+  type: String
+  vars: String
+}
+
+"""Ordering options when selecting data from "main.view_alert"."""
+input alerts_order_by {
+  data: order_by
+  description: order_by
+  ends_at: order_by
+  fire_alert_regex: order_by
+  id: order_by
+  name: order_by
+  query: order_by
+  receiver_endpoint: order_by
+  receiver_type: order_by
+  severity: order_by
+  starts_at: order_by
+  status: order_by
+  type: order_by
+  vars: order_by
+}
+
+"""
+select columns of table "main.view_alert"
+"""
+enum alerts_select_column {
+  """column name"""
+  data
+
+  """column name"""
+  description
+
+  """column name"""
+  ends_at
+
+  """column name"""
+  fire_alert_regex
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  query
+
+  """column name"""
+  receiver_endpoint
+
+  """column name"""
+  receiver_type
+
+  """column name"""
+  severity
+
+  """column name"""
+  starts_at
+
+  """column name"""
+  status
+
+  """column name"""
+  type
+
+  """column name"""
+  vars
+}
+
+"""
+Streaming cursor of the table "alerts"
+"""
+input alerts_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: alerts_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input alerts_stream_cursor_value_input {
+  data: String
+  description: String
+  ends_at: timestamptz
+  fire_alert_regex: String
+  id: uuid
+  name: String
+  query: String
+  receiver_endpoint: String
+  receiver_type: String
+  severity: String
+  starts_at: timestamptz
+  status: String
+  type: String
+  vars: String
+}
+
 input as_paths_diff_prefixes_args {
   base_service: String
   comp_service: String
@@ -4640,6 +4830,46 @@ type query_root {
     where: alertTypes_bool_exp
   ): [alertTypes!]!
 
+  """
+  fetch data from the table: "main.view_alert"
+  """
+  alerts(
+    """distinct select on columns"""
+    distinct_on: [alerts_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alerts_order_by!]
+
+    """filter the rows returned"""
+    where: alerts_bool_exp
+  ): [alerts!]!
+
+  """
+  fetch aggregated fields from the table: "main.view_alert"
+  """
+  alertsAggregate(
+    """distinct select on columns"""
+    distinct_on: [alerts_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alerts_order_by!]
+
+    """filter the rows returned"""
+    where: alerts_bool_exp
+  ): alerts_aggregate!
+
   """An array relationship"""
   autonomousSystemDataSourceAssociations(
     """distinct select on columns"""
@@ -6357,6 +6587,60 @@ type subscription_root {
     """filter the rows returned"""
     where: alertTypes_bool_exp
   ): [alertTypes!]!
+
+  """
+  fetch data from the table: "main.view_alert"
+  """
+  alerts(
+    """distinct select on columns"""
+    distinct_on: [alerts_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alerts_order_by!]
+
+    """filter the rows returned"""
+    where: alerts_bool_exp
+  ): [alerts!]!
+
+  """
+  fetch aggregated fields from the table: "main.view_alert"
+  """
+  alertsAggregate(
+    """distinct select on columns"""
+    distinct_on: [alerts_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [alerts_order_by!]
+
+    """filter the rows returned"""
+    where: alerts_bool_exp
+  ): alerts_aggregate!
+
+  """
+  fetch data from the table in a streaming manner: "main.view_alert"
+  """
+  alerts_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [alerts_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: alerts_bool_exp
+  ): [alerts!]!
 
   """An array relationship"""
   autonomousSystemDataSourceAssociations(
