@@ -836,6 +836,17 @@ type alerts_min_fields {
   vars: String
 }
 
+"""
+response of any mutation on the table "main.view_alert"
+"""
+type alerts_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [alerts!]!
+}
+
 """Ordering options when selecting data from "main.view_alert"."""
 input alerts_order_by {
   data: order_by
@@ -3211,6 +3222,14 @@ type mutation_root {
     """filter the rows which have to be deleted"""
     where: alertSubscriptions_bool_exp!
   ): alertSubscriptions_mutation_response
+
+  """
+  delete data from the table: "main.view_alert"
+  """
+  deleteAlerts(
+    """filter the rows which have to be deleted"""
+    where: alerts_bool_exp!
+  ): alerts_mutation_response
 
   """
   delete data from the table: "main.view_new_autonomous_system_data_source_assoc"
