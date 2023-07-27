@@ -5761,6 +5761,9 @@ type routes {
   data_source_count: Int
   id: uuid
 
+  """invalid RPKI ROA"""
+  invalid_rpki_roa: uuid
+
   """An object relationship"""
   neighborAutonomousSystem: autonomousSystems
 
@@ -5812,6 +5815,9 @@ type routes {
   get the latest BGP update time of a route based on route-data source associations
   """
   time_updated: timestamptz
+
+  """valid RPKI ROA"""
+  valid_rpki_roa: uuid
 }
 
 """
@@ -5870,6 +5876,7 @@ input routes_bool_exp {
   contains_bogon_ases: String_comparison_exp
   data_source_count: Int_comparison_exp
   id: uuid_comparison_exp
+  invalid_rpki_roa: uuid_comparison_exp
   neighborAutonomousSystem: autonomousSystems_bool_exp
   originAutonomousSystem: autonomousSystems_bool_exp
   prefix: prefixes_bool_exp
@@ -5878,6 +5885,7 @@ input routes_bool_exp {
   rpki_status: String_comparison_exp
   time_inserted: timestamptz_comparison_exp
   time_updated: timestamptz_comparison_exp
+  valid_rpki_roa: uuid_comparison_exp
 }
 
 """
@@ -5957,6 +5965,7 @@ input routes_order_by {
   contains_bogon_ases: order_by
   data_source_count: order_by
   id: order_by
+  invalid_rpki_roa: order_by
   neighborAutonomousSystem: autonomousSystems_order_by
   originAutonomousSystem: autonomousSystems_order_by
   prefix: prefixes_order_by
@@ -5964,6 +5973,7 @@ input routes_order_by {
   rpki_status: order_by
   time_inserted: order_by
   time_updated: order_by
+  valid_rpki_roa: order_by
 }
 
 """
